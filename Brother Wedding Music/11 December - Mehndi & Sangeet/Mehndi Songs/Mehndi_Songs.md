@@ -1,0 +1,30 @@
+# 🎵 Mehndi Songs - Song Collection
+**Day:** Day 2 (11 Dec) | **Function:** Mehndi Songs | **Total Songs:** 20
+
+---
+
+| # | Song Name | Movie / Album | Singer(s) | Year | Subcategory | YouTube | Spotify |
+|---|-----------|---------------|-----------|------|-------------|---------|---------|
+| 1 | **Mehndi Hai Rachne Wali** | Zubeidaa | Alka Yagnik | 2001 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Mehndi+Hai+Rachne+Wali+Zubeidaa) | [🎵 Spotify](https://open.spotify.com/search/Mehndi%20Hai%20Rachne%20Wali%20Alka%20Yagnik) |
+| 2 | **Mehndi Laga Ke Rakhna** | Dilwale Dulhania Le Jayenge | Lata Mangeshkar, Udit Narayan | 1995 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Mehndi+Laga+Ke+Rakhna+Dilwale+Dulhania+Le+Jayenge) | [🎵 Spotify](https://open.spotify.com/search/Mehndi%20Laga%20Ke%20Rakhna%20Lata%20Mangeshkar) |
+| 3 | **Mehendi Rang Layee** | Chal Mere Bhai | Udit Narayan, Sonu Nigam, Alka Yagnik | 2000 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Mehendi+Rang+Layee+Chal+Mere+Bhai) | [🎵 Spotify](https://open.spotify.com/search/Mehendi%20Rang%20Layee%20Udit%20Narayan) |
+| 4 | **Punjabi Wedding Song** | Hasee Toh Phasee | Sunidhi Chauhan, Benny Dayal | 2014 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Punjabi+Wedding+Song+Hasee+Toh+Phasee) | [🎵 Spotify](https://open.spotify.com/search/Punjabi%20Wedding%20Song%20Sunidhi%20Chauhan) |
+| 5 | **Likh Ke Mehndi Se Sajna Ka Naam** | Ishq Hua | Anuradha Paudwal | 1997 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Likh+Ke+Mehndi+Se+Sajna+Ka+Naam+Ishq+Hua) | [🎵 Spotify](https://open.spotify.com/search/Likh%20Ke%20Mehndi%20Se%20Sajna%20Ka%20Naam%20Anuradha%20Paudwal) |
+| 6 | **Maine Payal Hai Chhankai** | Falguni Pathak (Indipop) | Falguni Pathak | 1999 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Maine+Payal+Hai+Chhankai+Falguni+Pathak+%28Indipop%29) | [🎵 Spotify](https://open.spotify.com/search/Maine%20Payal%20Hai%20Chhankai%20Falguni%20Pathak) |
+| 7 | **Prem Ratan Dhan Payo (Title)** | Prem Ratan Dhan Payo | Palak Muchhal | 2015 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Prem+Ratan+Dhan+Payo+%28Title%29+Prem+Ratan+Dhan+Payo) | [🎵 Spotify](https://open.spotify.com/search/Prem%20Ratan%20Dhan%20Payo%20%28Title%29%20Palak%20Muchhal) |
+| 8 | **Bumro Bumro** | Mission Kashmir | Shankar Mahadevan, Jaspinder Narula | 2000 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Bumro+Bumro+Mission+Kashmir) | [🎵 Spotify](https://open.spotify.com/search/Bumro%20Bumro%20Shankar%20Mahadevan) |
+| 9 | **Rangrez** | Rocky Aur Rani Kii Prem Kahaani | Arijit Singh | 2023 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Rangrez+Rocky+Aur+Rani+Kii+Prem+Kahaani) | [🎵 Spotify](https://open.spotify.com/search/Rangrez%20Arijit%20Singh) |
+| 10 | **Bijli** | Govinda Naam Mera | Mika Singh, Neha Kakkar | 2022 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Bijli+Govinda+Naam+Mera) | [🎵 Spotify](https://open.spotify.com/search/Bijli%20Mika%20Singh) |
+| 11 | **Dekhha Tenu** | Mr. & Mrs. Mahi | Mohd. Faiz | 2024 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Dekhha+Tenu+Mr.+%26+Mrs.+Mahi) | [🎵 Spotify](https://open.spotify.com/search/Dekhha%20Tenu%20Mohd.%20Faiz) |
+| 12 | **Banno Re Banno** | Yeh Jawaani Hai Deewani | Arijit Singh | 2013 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Banno+Re+Banno+Yeh+Jawaani+Hai+Deewani) | [🎵 Spotify](https://open.spotify.com/search/Banno%20Re%20Banno%20Arijit%20Singh) |
+| 13 | **Lo Chali Main** | Hum Aapke Hain Koun | Lata Mangeshkar | 1994 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Lo+Chali+Main+Hum+Aapke+Hain+Koun) | [🎵 Spotify](https://open.spotify.com/search/Lo%20Chali%20Main%20Lata%20Mangeshkar) |
+| 14 | **Wah Wah Ramji** | Hum Aapke Hain Koun | S.P. Balasubrahmanyam, Lata Mangeshkar | 1994 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Wah+Wah+Ramji+Hum+Aapke+Hain+Koun) | [🎵 Spotify](https://open.spotify.com/search/Wah%20Wah%20Ramji%20S.P.%20Balasubrahmanyam) |
+| 15 | **Say Shava Shava** | Kabhi Khushi Kabhie Gham | Udit Narayan, Alka Yagnik, Sudesh Bhosle | 2001 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Say+Shava+Shava+Kabhi+Khushi+Kabhie+Gham) | [🎵 Spotify](https://open.spotify.com/search/Say%20Shava%20Shava%20Udit%20Narayan) |
+| 16 | **Chhalka Chhalka Re** | Saathiya | Richa Sharma | 2002 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Chhalka+Chhalka+Re+Saathiya) | [🎵 Spotify](https://open.spotify.com/search/Chhalka%20Chhalka%20Re%20Richa%20Sharma) |
+| 17 | **Sweetheart** | Kedarnath | Dev Negi, Palak Muchhal | 2018 | Bollywood Mehndi | [▶ YouTube](https://www.youtube.com/results?search_query=Sweetheart+Kedarnath) | [🎵 Spotify](https://open.spotify.com/search/Sweetheart%20Dev%20Negi) |
+| 18 | **Lehenga** | Single/Album | Jass Manak | 2019 | Trending & Folk | [▶ YouTube](https://www.youtube.com/results?search_query=Lehenga+Single%2FAlbum) | [🎵 Spotify](https://open.spotify.com/search/Lehenga%20Jass%20Manak) |
+| 19 | **Kudmayi** | Rocky Aur Rani Kii Prem Kahaani | Alka Yagnik, Arijit Singh | 2023 | Trending & Folk | [▶ YouTube](https://www.youtube.com/results?search_query=Kudmayi+Rocky+Aur+Rani+Kii+Prem+Kahaani) | [🎵 Spotify](https://open.spotify.com/search/Kudmayi%20Alka%20Yagnik) |
+| 20 | **Aayi Nai** | Stree 2 | Sachin-Jigar, Divya Kumar | 2024 | Trending & Folk | [▶ YouTube](https://www.youtube.com/results?search_query=Aayi+Nai+Stree+2) | [🎵 Spotify](https://open.spotify.com/search/Aayi%20Nai%20Sachin-Jigar) |
+
+---
+> 💡 **DJ Tip:** This folder contains 20 curated songs specifically tailored for Mehndi Songs. Use YouTube and Spotify links to audition, build playlists, or cue directly during the function.

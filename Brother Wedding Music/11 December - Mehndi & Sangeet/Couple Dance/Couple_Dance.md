@@ -1,0 +1,34 @@
+# 🎵 Couple Dance - Song Collection
+**Day:** Day 2 (11 Dec) | **Function:** Couple Dance | **Total Songs:** 24
+
+---
+
+| # | Song Name | Movie / Album | Singer(s) | Year | Subcategory | YouTube | Spotify |
+|---|-----------|---------------|-----------|------|-------------|---------|---------|
+| 1 | **Heeriye** | Single | Jasleen Royal ft. Arijit Singh | 2023 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Heeriye+Single) | [🎵 Spotify](https://open.spotify.com/search/Heeriye%20Jasleen%20Royal%20ft.%20Arijit%20Singh) |
+| 2 | **O Maahi** | Dunki | Arijit Singh | 2023 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=O+Maahi+Dunki) | [🎵 Spotify](https://open.spotify.com/search/O%20Maahi%20Arijit%20Singh) |
+| 3 | **Tum Kya Mile** | Rocky Aur Rani Kii Prem Kahaani | Arijit Singh, Shreya Ghoshal | 2023 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Tum+Kya+Mile+Rocky+Aur+Rani+Kii+Prem+Kahaani) | [🎵 Spotify](https://open.spotify.com/search/Tum%20Kya%20Mile%20Arijit%20Singh) |
+| 4 | **Apna Bana Le** | Bhediya | Arijit Singh | 2022 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Apna+Bana+Le+Bhediya) | [🎵 Spotify](https://open.spotify.com/search/Apna%20Bana%20Le%20Arijit%20Singh) |
+| 5 | **Ve Haaniyaan** | Single | Ravi Dubey, Danny | 2022 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Ve+Haaniyaan+Single) | [🎵 Spotify](https://open.spotify.com/search/Ve%20Haaniyaan%20Ravi%20Dubey) |
+| 6 | **Raataan Lambiyan** | Shershaah | Jubin Nautiyal, Asees Kaur | 2021 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Raataan+Lambiyan+Shershaah) | [🎵 Spotify](https://open.spotify.com/search/Raataan%20Lambiyan%20Jubin%20Nautiyal) |
+| 7 | **Pehle Bhi Main** | Animal | Vishal Mishra | 2023 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Pehle+Bhi+Main+Animal) | [🎵 Spotify](https://open.spotify.com/search/Pehle%20Bhi%20Main%20Vishal%20Mishra) |
+| 8 | **Sajni** | Laapataa Ladies | Arijit Singh, Ram Sampath | 2024 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Sajni+Laapataa+Ladies) | [🎵 Spotify](https://open.spotify.com/search/Sajni%20Arijit%20Singh) |
+| 9 | **Tum Hi Ho** | Aashiqui 2 | Arijit Singh | 2013 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Tum+Hi+Ho+Aashiqui+2) | [🎵 Spotify](https://open.spotify.com/search/Tum%20Hi%20Ho%20Arijit%20Singh) |
+| 10 | **Kal Ho Naa Ho (Title)** | Kal Ho Naa Ho | Sonu Nigam | 2003 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Kal+Ho+Naa+Ho+%28Title%29+Kal+Ho+Naa+Ho) | [🎵 Spotify](https://open.spotify.com/search/Kal%20Ho%20Naa%20Ho%20%28Title%29%20Sonu%20Nigam) |
+| 11 | **Janam Janam** | Dilwale | Arijit Singh, Antara Mitra | 2015 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Janam+Janam+Dilwale) | [🎵 Spotify](https://open.spotify.com/search/Janam%20Janam%20Arijit%20Singh) |
+| 12 | **Tum Se Hi** | Jab We Met | Mohit Chauhan | 2007 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Tum+Se+Hi+Jab+We+Met) | [🎵 Spotify](https://open.spotify.com/search/Tum%20Se%20Hi%20Mohit%20Chauhan) |
+| 13 | **Humsafar** | Badrinath Ki Dulhania | Akhil Sachdeva, Mansheel Gujral | 2017 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Humsafar+Badrinath+Ki+Dulhania) | [🎵 Spotify](https://open.spotify.com/search/Humsafar%20Akhil%20Sachdeva) |
+| 14 | **Tera Ban Jaunga** | Kabir Singh | Akhil Sachdeva, Tulsi Kumar | 2019 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Tera+Ban+Jaunga+Kabir+Singh) | [🎵 Spotify](https://open.spotify.com/search/Tera%20Ban%20Jaunga%20Akhil%20Sachdeva) |
+| 15 | **Mast Magan** | 2 States | Arijit Singh, Chinmayi | 2014 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Mast+Magan+2+States) | [🎵 Spotify](https://open.spotify.com/search/Mast%20Magan%20Arijit%20Singh) |
+| 16 | **Dil Diyan Gallan** | Tiger Zinda Hai | Atif Aslam | 2017 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Dil+Diyan+Gallan+Tiger+Zinda+Hai) | [🎵 Spotify](https://open.spotify.com/search/Dil%20Diyan%20Gallan%20Atif%20Aslam) |
+| 17 | **Tere Hawaale** | Laal Singh Chaddha | Arijit Singh, Shilpa Rao | 2022 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Tere+Hawaale+Laal+Singh+Chaddha) | [🎵 Spotify](https://open.spotify.com/search/Tere%20Hawaale%20Arijit%20Singh) |
+| 18 | **Hawayein** | Jab Harry Met Sejal | Arijit Singh | 2017 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Hawayein+Jab+Harry+Met+Sejal) | [🎵 Spotify](https://open.spotify.com/search/Hawayein%20Arijit%20Singh) |
+| 19 | **Tera Hone Laga Hoon** | Ajab Prem Ki Ghazab Kahani | Atif Aslam, Alisha Chinai | 2009 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Tera+Hone+Laga+Hoon+Ajab+Prem+Ki+Ghazab+Kahani) | [🎵 Spotify](https://open.spotify.com/search/Tera%20Hone%20Laga%20Hoon%20Atif%20Aslam) |
+| 20 | **Tere Liye** | Veer-Zaara | Lata Mangeshkar, Roop Kumar Rathod | 2004 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Tere+Liye+Veer-Zaara) | [🎵 Spotify](https://open.spotify.com/search/Tere%20Liye%20Lata%20Mangeshkar) |
+| 21 | **Suraj Hua Maddham** | Kabhi Khushi Kabhie Gham | Sonu Nigam, Alka Yagnik | 2001 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Suraj+Hua+Maddham+Kabhi+Khushi+Kabhie+Gham) | [🎵 Spotify](https://open.spotify.com/search/Suraj%20Hua%20Maddham%20Sonu%20Nigam) |
+| 22 | **Raanjhanaa (Title)** | Raanjhanaa | A.R. Rahman, Shiraz Uppal | 2013 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Raanjhanaa+%28Title%29+Raanjhanaa) | [🎵 Spotify](https://open.spotify.com/search/Raanjhanaa%20%28Title%29%20A.R.%20Rahman) |
+| 23 | **Piya O Re Piya** | Tere Naal Love Ho Gaya | Atif Aslam, Shreya Ghoshal | 2012 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Piya+O+Re+Piya+Tere+Naal+Love+Ho+Gaya) | [🎵 Spotify](https://open.spotify.com/search/Piya%20O%20Re%20Piya%20Atif%20Aslam) |
+| 24 | **Ishq Wala Love** | Student of the Year | Neeti Mohan, Salim Merchant, Shekhar Ravjiani | 2012 | Romantic Slow & Duets | [▶ YouTube](https://www.youtube.com/results?search_query=Ishq+Wala+Love+Student+of+the+Year) | [🎵 Spotify](https://open.spotify.com/search/Ishq%20Wala%20Love%20Neeti%20Mohan) |
+
+---
+> 💡 **DJ Tip:** This folder contains 24 curated songs specifically tailored for Couple Dance. Use YouTube and Spotify links to audition, build playlists, or cue directly during the function.

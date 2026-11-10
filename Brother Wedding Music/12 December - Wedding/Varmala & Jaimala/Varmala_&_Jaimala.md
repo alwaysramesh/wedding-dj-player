@@ -1,0 +1,30 @@
+# 🎵 Varmala & Jaimala - Song Collection
+**Day:** Day 3 (12 Dec) | **Function:** Varmala & Jaimala | **Total Songs:** 20
+
+---
+
+| # | Song Name | Movie / Album | Singer(s) | Year | Subcategory | YouTube | Spotify |
+|---|-----------|---------------|-----------|------|-------------|---------|---------|
+| 1 | **Aaj Sajeya** | Album | Goldie Sohel | 2021 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Aaj+Sajeya+Album) | [🎵 Spotify](https://open.spotify.com/search/Aaj%20Sajeya%20Goldie%20Sohel) |
+| 2 | **Peer Vi Tu** | Album | Harshdeep Kaur | 2018 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Peer+Vi+Tu+Album) | [🎵 Spotify](https://open.spotify.com/search/Peer%20Vi%20Tu%20Harshdeep%20Kaur) |
+| 3 | **Tum Prem Ho** | Radha Krishna | Surya Raj Kamal | 2018 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Tum+Prem+Ho+Radha+Krishna) | [🎵 Spotify](https://open.spotify.com/search/Tum%20Prem%20Ho%20Surya%20Raj%20Kamal) |
+| 4 | **Dekha Tenu** | Mr. & Mrs. Mahi | Arijit Singh | 2024 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Dekha+Tenu+Mr.+%26+Mrs.+Mahi) | [🎵 Spotify](https://open.spotify.com/search/Dekha%20Tenu%20Arijit%20Singh) |
+| 5 | **Mangalyam (Instrumental)** | Saathiya | A.R. Rahman | 2002 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Mangalyam+%28Instrumental%29+Saathiya) | [🎵 Spotify](https://open.spotify.com/search/Mangalyam%20%28Instrumental%29%20A.R.%20Rahman) |
+| 6 | **Ghar More Pardesiya** | Kalank | Shreya Ghoshal, Vaishali Mhade | 2019 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Ghar+More+Pardesiya+Kalank) | [🎵 Spotify](https://open.spotify.com/search/Ghar%20More%20Pardesiya%20Shreya%20Ghoshal) |
+| 7 | **Tere Vaaste** | Zara Hatke Zara Bachke | Varijashree Venugopal, Arijit Singh | 2023 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Tere+Vaaste+Zara+Hatke+Zara+Bachke) | [🎵 Spotify](https://open.spotify.com/search/Tere%20Vaaste%20Varijashree%20Venugopal) |
+| 8 | **Soulmate** | Album | Badshah, Arijit Singh | 2023 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Soulmate+Album) | [🎵 Spotify](https://open.spotify.com/search/Soulmate%20Badshah) |
+| 9 | **Ram Ram Jai Raja Ram (Wedding Version)** | Devotional | Various Artists | Traditional | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Ram+Ram+Jai+Raja+Ram+%28Wedding+Version%29+Devotional) | [🎵 Spotify](https://open.spotify.com/search/Ram%20Ram%20Jai%20Raja%20Ram%20%28Wedding%20Version%29%20Various%20Artists) |
+| 10 | **Ranjha** | Shershaah | B Praak | 2021 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Ranjha+Shershaah) | [🎵 Spotify](https://open.spotify.com/search/Ranjha%20B%20Praak) |
+| 11 | **Pehla Nasha** | Jo Jeeta Wohi Sikandar | Udit Narayan, Sadhana Sargam | 1992 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Pehla+Nasha+Jo+Jeeta+Wohi+Sikandar) | [🎵 Spotify](https://open.spotify.com/search/Pehla%20Nasha%20Udit%20Narayan) |
+| 12 | **Ban Ja Rani** | Tumhari Sulu | Guru Randhawa | 2017 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Ban+Ja+Rani+Tumhari+Sulu) | [🎵 Spotify](https://open.spotify.com/search/Ban%20Ja%20Rani%20Guru%20Randhawa) |
+| 13 | **Kudmayi (Jaimala Special)** | Rocky Aur Rani Kii Prem Kahaani | Shreya Ghoshal, Arijit Singh | 2023 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Kudmayi+%28Jaimala+Special%29+Rocky+Aur+Rani+Kii+Prem+Kahaani) | [🎵 Spotify](https://open.spotify.com/search/Kudmayi%20%28Jaimala%20Special%29%20Shreya%20Ghoshal) |
+| 14 | **Aisa Sama Na Hota** | Zameen Aasmaan | Lata Mangeshkar | 1984 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Aisa+Sama+Na+Hota+Zameen+Aasmaan) | [🎵 Spotify](https://open.spotify.com/search/Aisa%20Sama%20Na%20Hota%20Lata%20Mangeshkar) |
+| 15 | **Tu Mile Dil Khile** | Criminal | Kumar Sanu, Alka Yagnik | 1995 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Tu+Mile+Dil+Khile+Criminal) | [🎵 Spotify](https://open.spotify.com/search/Tu%20Mile%20Dil%20Khile%20Kumar%20Sanu) |
+| 16 | **Chupke Se** | Saathiya | Sadhana Sargam | 2002 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Chupke+Se+Saathiya) | [🎵 Spotify](https://open.spotify.com/search/Chupke%20Se%20Sadhana%20Sargam) |
+| 17 | **Jashn-E-Bahara** | Jodhaa Akbar | Javed Ali | 2008 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Jashn-E-Bahara+Jodhaa+Akbar) | [🎵 Spotify](https://open.spotify.com/search/Jashn-E-Bahara%20Javed%20Ali) |
+| 18 | **Moh Moh Ke Dhaage** | Dum Laga Ke Haisha | Papon, Monali Thakur | 2015 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Moh+Moh+Ke+Dhaage+Dum+Laga+Ke+Haisha) | [🎵 Spotify](https://open.spotify.com/search/Moh%20Moh%20Ke%20Dhaage%20Papon) |
+| 19 | **Subhanallah** | Yeh Jawaani Hai Deewani | Sreerama Chandra, Shilpa Rao | 2013 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Subhanallah+Yeh+Jawaani+Hai+Deewani) | [🎵 Spotify](https://open.spotify.com/search/Subhanallah%20Sreerama%20Chandra) |
+| 20 | **Raabta (Kehte Hain Khuda)** | Agent Vinod | Arijit Singh, Hamsika Iyer | 2012 | Garland Exchange Moments | [▶ YouTube](https://www.youtube.com/results?search_query=Raabta+%28Kehte+Hain+Khuda%29+Agent+Vinod) | [🎵 Spotify](https://open.spotify.com/search/Raabta%20%28Kehte%20Hain%20Khuda%29%20Arijit%20Singh) |
+
+---
+> 💡 **DJ Tip:** This folder contains 20 curated songs specifically tailored for Varmala & Jaimala. Use YouTube and Spotify links to audition, build playlists, or cue directly during the function.

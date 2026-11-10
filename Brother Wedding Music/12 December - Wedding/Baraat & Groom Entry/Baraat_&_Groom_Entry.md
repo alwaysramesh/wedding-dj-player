@@ -1,0 +1,30 @@
+# 🎵 Baraat & Groom Entry - Song Collection
+**Day:** Day 3 (12 Dec) | **Function:** Baraat & Groom Entry | **Total Songs:** 20
+
+---
+
+| # | Song Name | Movie / Album | Singer(s) | Year | Subcategory | YouTube | Spotify |
+|---|-----------|---------------|-----------|------|-------------|---------|---------|
+| 1 | **Malhari** | Bajirao Mastani | Vishal Dadlani | 2015 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Malhari+Bajirao+Mastani) | [🎵 Spotify](https://open.spotify.com/search/Malhari%20Vishal%20Dadlani) |
+| 2 | **Badtameez Dil** | Yeh Jawaani Hai Deewani | Benny Dayal | 2013 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Badtameez+Dil+Yeh+Jawaani+Hai+Deewani) | [🎵 Spotify](https://open.spotify.com/search/Badtameez%20Dil%20Benny%20Dayal) |
+| 3 | **Tenu Leke** | Salaam-e-Ishq | Sonu Nigam | 2007 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Tenu+Leke+Salaam-e-Ishq) | [🎵 Spotify](https://open.spotify.com/search/Tenu%20Leke%20Sonu%20Nigam) |
+| 4 | **Bhool Bhulaiyaa 3 Title Track** | Bhool Bhulaiyaa 3 | Neeraj Shridhar, Pitbull | 2024 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Bhool+Bhulaiyaa+3+Title+Track+Bhool+Bhulaiyaa+3) | [🎵 Spotify](https://open.spotify.com/search/Bhool%20Bhulaiyaa%203%20Title%20Track%20Neeraj%20Shridhar) |
+| 5 | **Pushpa Pushpa** | Pushpa 2: The Rule | Mika Singh, Sukumar, DSP | 2024 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Pushpa+Pushpa+Pushpa+2%3A+The+Rule) | [🎵 Spotify](https://open.spotify.com/search/Pushpa%20Pushpa%20Mika%20Singh) |
+| 6 | **Kissik** | Pushpa 2: The Rule | Shreya Ghoshal | 2024 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Kissik+Pushpa+2%3A+The+Rule) | [🎵 Spotify](https://open.spotify.com/search/Kissik%20Shreya%20Ghoshal) |
+| 7 | **Tunak Tunak Tun** | Album | Daler Mehndi | 1998 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Tunak+Tunak+Tun+Album) | [🎵 Spotify](https://open.spotify.com/search/Tunak%20Tunak%20Tun%20Daler%20Mehndi) |
+| 8 | **Ishq Tera Tadpave (Oh Ho Ho Ho)** | Album | Sukhbir | 1998 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Ishq+Tera+Tadpave+%28Oh+Ho+Ho+Ho%29+Album) | [🎵 Spotify](https://open.spotify.com/search/Ishq%20Tera%20Tadpave%20%28Oh%20Ho%20Ho%20Ho%29%20Sukhbir) |
+| 9 | **Aaj Mere Yaar Ki Shaadi Hai** | Aadmi Sadak Ka | Mohammed Rafi | 1977 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Aaj+Mere+Yaar+Ki+Shaadi+Hai+Aadmi+Sadak+Ka) | [🎵 Spotify](https://open.spotify.com/search/Aaj%20Mere%20Yaar%20Ki%20Shaadi%20Hai%20Mohammed%20Rafi) |
+| 10 | **Saajanji Ghar Aaye** | Kuch Kuch Hota Hai | Kumar Sanu, Alka Yagnik, Kavita K. | 1998 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Saajanji+Ghar+Aaye+Kuch+Kuch+Hota+Hai) | [🎵 Spotify](https://open.spotify.com/search/Saajanji%20Ghar%20Aaye%20Kumar%20Sanu) |
+| 11 | **Palat - Tera Hero Idhar Hai** | Main Tera Hero | Arijit Singh | 2014 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Palat+-+Tera+Hero+Idhar+Hai+Main+Tera+Hero) | [🎵 Spotify](https://open.spotify.com/search/Palat%20-%20Tera%20Hero%20Idhar%20Hai%20Arijit%20Singh) |
+| 12 | **Vibe** | Album | Diljit Dosanjh | 2022 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Vibe+Album) | [🎵 Spotify](https://open.spotify.com/search/Vibe%20Diljit%20Dosanjh) |
+| 13 | **Mere Mehboob Mere Sanam (Remix)** | Bad Newz | Mika Singh | 2024 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Mere+Mehboob+Mere+Sanam+%28Remix%29+Bad+Newz) | [🎵 Spotify](https://open.spotify.com/search/Mere%20Mehboob%20Mere%20Sanam%20%28Remix%29%20Mika%20Singh) |
+| 14 | **Aashiq Surrender Hua** | Badrinath Ki Dulhania | Amaal Mallik, Shreya Ghoshal | 2017 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Aashiq+Surrender+Hua+Badrinath+Ki+Dulhania) | [🎵 Spotify](https://open.spotify.com/search/Aashiq%20Surrender%20Hua%20Amaal%20Mallik) |
+| 15 | **Chhote Chhote Bhaiyon Ke** | Hum Saath-Saath Hain | Kavita Krishnamurthy, Udit Narayan | 1999 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Chhote+Chhote+Bhaiyon+Ke+Hum+Saath-Saath+Hain) | [🎵 Spotify](https://open.spotify.com/search/Chhote%20Chhote%20Bhaiyon%20Ke%20Kavita%20Krishnamurthy) |
+| 16 | **Balle Balle** | Bride and Prejudice | Sonu Nigam, Gayatri Ganjawala | 2004 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Balle+Balle+Bride+and+Prejudice) | [🎵 Spotify](https://open.spotify.com/search/Balle%20Balle%20Sonu%20Nigam) |
+| 17 | **Jee Karda** | Singh Is Kinng | Labh Janjua, Suzie Q | 2008 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Jee+Karda+Singh+Is+Kinng) | [🎵 Spotify](https://open.spotify.com/search/Jee%20Karda%20Labh%20Janjua) |
+| 18 | **Mundian To Bach Ke** | Album | Panjabi MC | 1998 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Mundian+To+Bach+Ke+Album) | [🎵 Spotify](https://open.spotify.com/search/Mundian%20To%20Bach%20Ke%20Panjabi%20MC) |
+| 19 | **Bhaag D.K. Bose** | Delhi Belly | Ram Sampath | 2011 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Bhaag+D.K.+Bose+Delhi+Belly) | [🎵 Spotify](https://open.spotify.com/search/Bhaag%20D.K.%20Bose%20Ram%20Sampath) |
+| 20 | **Dhol Jageero Da** | Album | Panjabi MC | 2001 | Grand Baraat Anthems | [▶ YouTube](https://www.youtube.com/results?search_query=Dhol+Jageero+Da+Album) | [🎵 Spotify](https://open.spotify.com/search/Dhol%20Jageero%20Da%20Panjabi%20MC) |
+
+---
+> 💡 **DJ Tip:** This folder contains 20 curated songs specifically tailored for Baraat & Groom Entry. Use YouTube and Spotify links to audition, build playlists, or cue directly during the function.

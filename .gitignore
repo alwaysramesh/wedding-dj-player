@@ -1,0 +1,16 @@
+# Audio media files (Too large for standard GitHub repos - keep locally)
+*.webm
+*.mp3
+*.m4a
+*.opus
+*.wav
+*.flac
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local system files
+.DS_Store
+Thumbs.db
+
