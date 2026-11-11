@@ -1072,35 +1072,197 @@
             font-weight: 700;
         }
 
-        .sheet-fx-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
+        /* World-Class DJ Launchpad & Sampler Pads (User Card Style) */
+        .dj-launchpad {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .btn-fx-pad {
-            padding: 7px 3px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border);
-            color: #fff;
+        .pad-card {
+            min-width: 58px;
+            height: 66px;
+            padding: 6px 10px;
+            border-radius: 12px;
+            background: #141722;
+            background: linear-gradient(180deg, #1b2030 0%, #111420 100%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
+            justify-content: center;
+            gap: 3px;
             cursor: pointer;
-            font-size: 10px;
-            font-weight: 600;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s, box-shadow 0.15s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .btn-fx-pad:active {
+        .pad-card:hover {
+            background: linear-gradient(180deg, #222a3e 0%, #161a29 100%);
+            border-color: rgba(245, 158, 11, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .pad-card:active, .pad-card.pad-active {
             transform: scale(0.92);
+            background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+            border-color: #fbbf24;
+            box-shadow: 0 0 22px rgba(245, 158, 11, 0.6);
+        }
+
+        .pad-card:active .pad-label, .pad-card.pad-active .pad-label {
+            color: #000 !important;
+            font-weight: 800;
+        }
+
+        .pad-card .pad-icon {
+            font-size: 22px;
+            line-height: 1;
+            pointer-events: none;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+        }
+
+        .pad-card .pad-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.3px;
+            line-height: 1.1;
+            pointer-events: none;
+            transition: color 0.1s;
+        }
+
+        .pad-card .pad-key {
+            position: absolute;
+            top: 3px;
+            right: 5px;
+            font-size: 8px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.35);
+            pointer-events: none;
+        }
+
+        /* Mobile Hype Sampler Bar */
+        .mobile-hype-bar {
+            position: fixed;
+            bottom: 73px;
+            left: 0;
+            right: 0;
+            z-index: 95;
+            padding: 5px 8px;
+            background: rgba(12, 15, 24, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 -3px 14px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-hype-bar .pad-card {
+            min-width: 52px;
+            height: 54px;
+            padding: 4px 6px;
+            border-radius: 10px;
+        }
+
+        .mobile-hype-bar .pad-icon {
+            font-size: 18px;
+        }
+
+        .mobile-hype-bar .pad-label {
+            font-size: 10px;
+        }
+
+        /* Party Crowd Reactions Bar */
+        .party-reactions-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-md);
+            margin: 10px 16px;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .reactions-title {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--gold-light);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .reaction-pill {
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.15s;
+            user-select: none;
+        }
+
+        .reaction-pill:hover {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: var(--gold);
+            transform: translateY(-1px);
+        }
+
+        .reaction-pill:active {
+            transform: scale(0.94);
             background: var(--gold);
             color: #000;
         }
 
-        .btn-fx-pad span.icon {
-            font-size: 16px;
+        /* Floating Flying Emojis & Fireworks Engine */
+        @keyframes floatUpBurst {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.6) rotate(0deg);
+            }
+            40% {
+                opacity: 1;
+                transform: translate(var(--x-shift, 0px), -60px) scale(1.4) rotate(var(--rot, -10deg));
+            }
+            100% {
+                opacity: 0;
+                transform: translate(calc(var(--x-shift, 0px) * 1.5), -160px) scale(1.8) rotate(calc(var(--rot, -10deg) * 2));
+            }
+        }
+
+        .floating-particle {
+            position: fixed;
+            z-index: 99999;
+            pointer-events: none;
+            font-size: 30px;
+            animation: floatUpBurst 1.5s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+        }
+
+        .sheet-fx-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
         }
 
         /* Off-canvas Navigation Drawer */
@@ -1374,6 +1536,16 @@
                 </div>
 
                 <!-- Mobile Card List (<768px) -->
+                <!-- Interactive Party Crowd Reactions Bar (High Engagement) -->
+                <div class="party-reactions-bar">
+                    <span class="reactions-title">🔥 PARTY HYPE:</span>
+                    <button class="reaction-pill" onclick="sendReaction('🕺', 'Balle Balle! 💃')">🕺 Balle Balle</button>
+                    <button class="reaction-pill" onclick="sendReaction('💃', 'Nachle! 🎶')">💃 Nachle Yaar</button>
+                    <button class="reaction-pill" onclick="sendReaction('🔥', 'Dance Floor on Fire! 🔥')">🔥 Aag Laga Di</button>
+                    <button class="reaction-pill" onclick="sendReaction('❤️', 'Shaadi Mubarak! 💍')">❤️ Badhai Ho</button>
+                    <button class="reaction-pill" onclick="sendReaction('🎉', 'Once More! 🔁')">🎉 Once More</button>
+                </div>
+
                 <div class="mobile-song-list" id="mobile-song-list">
                     <!-- Populated dynamically -->
                 </div>
@@ -1398,6 +1570,30 @@
                     </table>
                 </div>
             </main>
+        </div>
+
+        <!-- Mobile Instant DJ Hype Launchpad (<768px) -->
+        <div class="mobile-hype-bar mobile-only">
+            <button class="pad-card" onclick="triggerFX('horn', this)" title="Air Horn">
+                <span class="pad-icon">🎺</span>
+                <span class="pad-label">Horn</span>
+            </button>
+            <button class="pad-card" onclick="triggerFX('dhol', this)" title="Dhol">
+                <span class="pad-icon">🥁</span>
+                <span class="pad-label">Dhol</span>
+            </button>
+            <button class="pad-card" onclick="triggerFX('cheer', this)" title="Cheer">
+                <span class="pad-icon">👏</span>
+                <span class="pad-label">Cheer</span>
+            </button>
+            <button class="pad-card" onclick="triggerFX('scratch', this)" title="Scratch">
+                <span class="pad-icon">🎛️</span>
+                <span class="pad-label">Scratch</span>
+            </button>
+            <button class="pad-card" onclick="triggerFX('siren', this)" title="Siren">
+                <span class="pad-icon">🚨</span>
+                <span class="pad-label">Siren</span>
+            </button>
         </div>
 
         <!-- Sticky Bottom Master DJ Bar -->
@@ -1463,16 +1659,37 @@
 
             <!-- Desktop Controls Right (>768px) -->
             <div class="desktop-deck-right desktop-only">
-                <div style="display:flex; align-items:center; gap:6px;">
+                <div style="display:flex; align-items:center; justify-content:flex-end; gap:8px; width:100%; margin-bottom:2px;">
                     <span style="font-size:12px;">🔊</span>
-                    <input type="range" class="sheet-slider" id="desk-vol-slider" min="0" max="1" step="0.05" value="0.9" style="width:75px;">
+                    <input type="range" class="sheet-slider" id="desk-vol-slider" min="0" max="1" step="0.05" value="0.9" style="width:85px;">
                 </div>
-                <div style="display:flex; gap:4px;">
-                    <button class="btn-fx-pad" onclick="playFX('horn')" title="Air Horn (1)"><span class="icon">🎺</span>Horn</button>
-                    <button class="btn-fx-pad" onclick="playFX('dhol')" title="Dhol (2)"><span class="icon">🥁</span>Dhol</button>
-                    <button class="btn-fx-pad" onclick="playFX('cheer')" title="Cheer (3)"><span class="icon">👏</span>Cheer</button>
-                    <button class="btn-fx-pad" onclick="playFX('scratch')" title="Scratch (4)"><span class="icon">🎚️</span>Scratch</button>
-                    <button class="btn-fx-pad" onclick="playFX('siren')" title="Club Siren (5)"><span class="icon">🚨</span>Siren</button>
+                <!-- DJ Sampler Launchpad (Exact User Image Design) -->
+                <div class="dj-launchpad">
+                    <button class="pad-card" id="pad-btn-horn" onclick="triggerFX('horn', this)" title="Air Horn Blast (Key 1)">
+                        <span class="pad-key">1</span>
+                        <span class="pad-icon">🎺</span>
+                        <span class="pad-label">Horn</span>
+                    </button>
+                    <button class="pad-card" id="pad-btn-dhol" onclick="triggerFX('dhol', this)" title="Punjabi Dhol Roll (Key 2)">
+                        <span class="pad-key">2</span>
+                        <span class="pad-icon">🥁</span>
+                        <span class="pad-label">Dhol</span>
+                    </button>
+                    <button class="pad-card" id="pad-btn-cheer" onclick="triggerFX('cheer', this)" title="Crowd Cheer & Applause (Key 3)">
+                        <span class="pad-key">3</span>
+                        <span class="pad-icon">👏</span>
+                        <span class="pad-label">Cheer</span>
+                    </button>
+                    <button class="pad-card" id="pad-btn-scratch" onclick="triggerFX('scratch', this)" title="Vinyl Scratch Spinback (Key 4)">
+                        <span class="pad-key">4</span>
+                        <span class="pad-icon">🎛️</span>
+                        <span class="pad-label">Scratch</span>
+                    </button>
+                    <button class="pad-card" id="pad-btn-siren" onclick="triggerFX('siren', this)" title="Club Laser Siren (Key 5)">
+                        <span class="pad-key">5</span>
+                        <span class="pad-icon">🚨</span>
+                        <span class="pad-label">Siren</span>
+                    </button>
                 </div>
             </div>
 
@@ -1561,11 +1778,26 @@
         <div class="sheet-fx-section">
             <div class="sheet-fx-title">🔥 Live DJ Hype Drops</div>
             <div class="sheet-fx-grid">
-                <button class="btn-fx-pad" onclick="playFX('horn')"><span class="icon">🎺</span>Air Horn</button>
-                <button class="btn-fx-pad" onclick="playFX('dhol')"><span class="icon">🥁</span>Dhol Beat</button>
-                <button class="btn-fx-pad" onclick="playFX('cheer')"><span class="icon">👏</span>Cheer</button>
-                <button class="btn-fx-pad" onclick="playFX('scratch')"><span class="icon">🎚️</span>Scratch</button>
-                <button class="btn-fx-pad" onclick="playFX('siren')"><span class="icon">🚨</span>Siren</button>
+                <button class="pad-card" onclick="triggerFX('horn', this)">
+                    <span class="pad-icon">🎺</span>
+                    <span class="pad-label">Horn</span>
+                </button>
+                <button class="pad-card" onclick="triggerFX('dhol', this)">
+                    <span class="pad-icon">🥁</span>
+                    <span class="pad-label">Dhol</span>
+                </button>
+                <button class="pad-card" onclick="triggerFX('cheer', this)">
+                    <span class="pad-icon">👏</span>
+                    <span class="pad-label">Cheer</span>
+                </button>
+                <button class="pad-card" onclick="triggerFX('scratch', this)">
+                    <span class="pad-icon">🎛️</span>
+                    <span class="pad-label">Scratch</span>
+                </button>
+                <button class="pad-card" onclick="triggerFX('siren', this)">
+                    <span class="pad-icon">🚨</span>
+                    <span class="pad-label">Siren</span>
+                </button>
             </div>
         </div>
 
@@ -1850,6 +2082,71 @@
                     }, 150);
                 }
             }, 80);
+        }
+
+        // Interactive Floating Emojis & Party Reaction Engine
+        function spawnFloatingEmoji(emoji, x, y) {
+            const el = document.createElement('div');
+            el.className = 'floating-particle';
+            el.textContent = emoji;
+            const xShift = (Math.random() * 80 - 40) + 'px';
+            const rot = (Math.random() * 30 - 15) + 'deg';
+            el.style.setProperty('--x-shift', xShift);
+            el.style.setProperty('--rot', rot);
+            el.style.left = Math.max(10, Math.min(window.innerWidth - 45, (x || (window.innerWidth / 2)))) + 'px';
+            el.style.top = Math.max(20, (y || (window.innerHeight - 90))) + 'px';
+            document.body.appendChild(el);
+            setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 1550);
+        }
+
+        // Live DJ Hype Trigger with Haptic & Visual Reaction
+        function triggerFX(type, btnEl) {
+            if (btnEl) {
+                btnEl.classList.add('pad-active');
+                setTimeout(() => btnEl.classList.remove('pad-active'), 180);
+                
+                const rect = btnEl.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top;
+                
+                const particleMap = {
+                    'horn': ['🎺', '📢', '🔥', '⚡'],
+                    'dhol': ['🥁', '💥', '✨', '🎶'],
+                    'cheer': ['👏', '🎉', '🎊', '🥳'],
+                    'scratch': ['🎛️', '💫', '⚡', '🎵'],
+                    'siren': ['🚨', '🔴', '🔵', '⚡']
+                };
+                
+                const emojis = particleMap[type] || ['✨', '🔥'];
+                for (let i = 0; i < 4; i++) {
+                    setTimeout(() => {
+                        spawnFloatingEmoji(emojis[Math.floor(Math.random() * emojis.length)], centerX + (Math.random() * 30 - 15), centerY);
+                    }, i * 65);
+                }
+            }
+            
+            // Haptic vibration on mobile
+            if (navigator.vibrate) {
+                try { navigator.vibrate([35, 20, 35]); } catch(e) {}
+            }
+            
+            playFX(type);
+        }
+
+        // Wedding Party Crowd Reaction
+        function sendReaction(emoji, text) {
+            toast(emoji + ' ' + text);
+            // Spawn shower of celebratory emojis
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const rx = (window.innerWidth * 0.15) + Math.random() * (window.innerWidth * 0.7);
+                    const ry = window.innerHeight - 100;
+                    spawnFloatingEmoji(emoji, rx, ry);
+                }, i * 75);
+            }
+            
+            // Light dhol sound kick for excitement
+            playFX('dhol');
         }
 
         // Synthesize Instant DJ FX with Web Audio API (Zero external assets, works 100% offline!)
