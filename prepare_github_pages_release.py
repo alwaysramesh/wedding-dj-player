@@ -222,3 +222,4 @@ with open(os.path.join(MUSIC_DIR, "Wedding_Music_Player.html"), "w", encoding="u
 print(f"✅ Created Root index.html for GitHub Pages: {root_index}")
 print(f"✅ Updated Brother Wedding Music/index.html")
 print(f"✅ Updated Brother Wedding Music/Wedding_Music_Player.html")
+
