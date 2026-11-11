@@ -1,19 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Wedding DJ Music Player - Mobile & Desktop Generator
-Builds a unified, fully responsive, touch-friendly Wedding DJ web app.
-Supports:
-- Local offline playback with folder connect (Blob URLs)
-- Seamless cloud YouTube audio streaming fallback for GitHub Pages
-- Full mobile-first touch UI with off-canvas drawer, ceremony carousel, song cards, mini-player, and full-screen DJ sheet
-- Full desktop 3-pane DJ studio console with visualizer, cue table, and keyboard shortcuts
-"""
-
-import os
-import json
-import re
-import urllib.parse
-import openpyxl
+import os, json, re, urllib.parse, openpyxl
 
 REPO_ROOT = r"c:\Users\LOTUS IT SOLUTION\Downloads\Ramesh_S"
 MUSIC_DIR = os.path.join(REPO_ROOT, "Brother Wedding Music")
@@ -183,15 +169,14 @@ for root, dirs, files in os.walk(MUSIC_DIR):
 print(f"Total songs parsed: {len(songs)}")
 songs_json = json.dumps(songs, ensure_ascii=False)
 
-# Write songs json to external or embedded
-print("3. Building HTML template...")
+print("3. Building World-Class DJ HTML Template...")
 
 html_template = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>👑 Ramesh Brother Wedding DJ Player | 10-12 Dec 2026</title>
+    <title>👑 Ramesh Brother Wedding DJ Pro Console | 10-12 Dec 2026</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#080a10">
@@ -212,6 +197,7 @@ html_template = """<!DOCTYPE html>
             --neon-red: #f43f5e;
             --neon-green: #10b981;
             --neon-cyan: #06b6d4;
+            --neon-purple: #c084fc;
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
@@ -493,7 +479,7 @@ html_template = """<!DOCTYPE html>
             overflow-x: hidden;
             background: radial-gradient(circle at 50% 0%, #171d2d 0%, var(--bg-body) 65%);
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 76px; /* space for bottom player */
+            padding-bottom: 96px;
         }
 
         /* Stage Header Banner */
@@ -820,13 +806,13 @@ html_template = """<!DOCTYPE html>
             font-weight: 700;
         }
 
-        /* Bottom Sticky Mini Player */
+        /* Bottom Sticky Master DJ Bar */
         .bottom-mini-player {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            height: 66px;
+            height: 72px;
             background: var(--bg-player);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -837,7 +823,7 @@ html_template = """<!DOCTYPE html>
             padding: 0 12px;
             padding-bottom: env(safe-area-inset-bottom, 0);
             z-index: 100;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.6);
         }
 
         /* Scrubber Line on top of mini player */
@@ -868,8 +854,8 @@ html_template = """<!DOCTYPE html>
         }
 
         .mini-vinyl {
-            width: 44px;
-            height: 44px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
             background: radial-gradient(circle, #2d261e 18%, #111 20%, #1a1a1a 60%, #000 100%);
             border: 2px solid var(--gold);
@@ -920,13 +906,13 @@ html_template = """<!DOCTYPE html>
         .mini-right-controls {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
             flex-shrink: 0;
         }
 
         .btn-mini-play {
-            width: 46px;
-            height: 46px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color: #000;
@@ -944,8 +930,8 @@ html_template = """<!DOCTYPE html>
         }
 
         .btn-mini-ctrl {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
@@ -953,12 +939,78 @@ html_template = """<!DOCTYPE html>
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 15px;
+            font-size: 13px;
             cursor: pointer;
         }
 
         .btn-mini-ctrl:active {
             transform: scale(0.92);
+        }
+
+        /* DJ Quick Toolbar Pills */
+        .dj-tweak-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+        }
+
+        .dj-pill-group {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dj-pill {
+            padding: 3px 8px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-right: 1px solid var(--border);
+            background: transparent;
+            transition: all 0.15s;
+        }
+
+        .dj-pill:last-child {
+            border-right: none;
+        }
+
+        .dj-pill.active {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .btn-dj-neon {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .btn-dj-neon.active {
+            background: rgba(6, 182, 212, 0.15);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.35);
+        }
+
+        .btn-dj-neon.party.active {
+            background: rgba(192, 132, 252, 0.15);
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
+            box-shadow: 0 0 12px rgba(192, 132, 252, 0.35);
         }
 
         /* Full-Screen Mobile DJ Sheet */
@@ -987,7 +1039,7 @@ html_template = """<!DOCTYPE html>
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .sheet-minimize {
@@ -1008,13 +1060,13 @@ html_template = """<!DOCTYPE html>
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 200px;
+            min-height: 180px;
             position: relative;
         }
 
         .hero-vinyl {
-            width: 175px;
-            height: 175px;
+            width: 170px;
+            height: 170px;
             border-radius: 50%;
             background: radial-gradient(circle, #2d261e 18%, #111 20%, #1a1a1a 60%, #000 100%);
             border: 3px solid var(--gold);
@@ -1044,7 +1096,7 @@ html_template = """<!DOCTYPE html>
 
         .sheet-info-box {
             text-align: center;
-            margin: 14px 0 10px;
+            margin: 10px 0 6px;
             padding: 0 10px;
         }
 
@@ -1052,7 +1104,7 @@ html_template = """<!DOCTYPE html>
             font-size: 18px;
             font-weight: 800;
             color: #fff;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1061,7 +1113,7 @@ html_template = """<!DOCTYPE html>
         .sheet-artist {
             font-size: 13px;
             color: var(--gold);
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         .sheet-tags {
@@ -1073,7 +1125,7 @@ html_template = """<!DOCTYPE html>
 
         /* Scrubber in Sheet */
         .sheet-scrub-box {
-            margin: 10px 0;
+            margin: 8px 0;
             display: flex;
             flex-direction: column;
             gap: 5px;
@@ -1111,12 +1163,12 @@ html_template = """<!DOCTYPE html>
             display: flex;
             align-items: center;
             justify-content: space-evenly;
-            margin: 12px 0;
+            margin: 10px 0;
         }
 
         .btn-sheet-sub {
-            width: 44px;
-            height: 44px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid var(--border);
@@ -1124,7 +1176,7 @@ html_template = """<!DOCTYPE html>
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
         }
 
@@ -1134,9 +1186,30 @@ html_template = """<!DOCTYPE html>
             background: rgba(245, 158, 11, 0.15);
         }
 
+        .btn-sheet-jump {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--border-gold);
+            color: var(--gold-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn-sheet-jump:active {
+            transform: scale(0.92);
+            background: var(--gold);
+            color: #000;
+        }
+
         .btn-sheet-hero {
-            width: 68px;
-            height: 68px;
+            width: 66px;
+            height: 66px;
             border-radius: 50%;
             background: linear-gradient(135deg, #fbbf24, #d97706);
             color: #000;
@@ -1144,7 +1217,7 @@ html_template = """<!DOCTYPE html>
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 24px;
             box-shadow: 0 0 25px var(--gold-glow);
             cursor: pointer;
         }
@@ -1158,8 +1231,8 @@ html_template = """<!DOCTYPE html>
             background: rgba(0, 0, 0, 0.25);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 10px 12px;
-            margin-top: 8px;
+            padding: 8px 10px;
+            margin-top: 6px;
         }
 
         .sheet-fx-title {
@@ -1167,19 +1240,19 @@ html_template = """<!DOCTYPE html>
             text-transform: uppercase;
             letter-spacing: 0.8px;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-align: center;
             font-weight: 700;
         }
 
         .sheet-fx-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
         }
 
         .btn-fx-pad {
-            padding: 8px 4px;
+            padding: 7px 3px;
             border-radius: 8px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
@@ -1187,7 +1260,7 @@ html_template = """<!DOCTYPE html>
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
+            gap: 2px;
             cursor: pointer;
             font-size: 10px;
             font-weight: 600;
@@ -1353,27 +1426,28 @@ html_template = """<!DOCTYPE html>
             .desktop-sidebar { display: flex; }
             .desktop-table-container { display: block; }
             .mobile-song-list { display: none; }
-            .stage-area { padding-bottom: 96px; }
+            .stage-area { padding-bottom: 106px; }
             .bottom-mini-player {
-                height: 86px;
+                height: 98px;
                 padding: 0 24px;
             }
-            .mini-vinyl { width: 54px; height: 54px; }
+            .mini-vinyl { width: 58px; height: 58px; }
             .mini-track-title { font-size: 16px; }
             .mini-track-sub { font-size: 13px; }
             .desktop-deck-center {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 6px;
+                gap: 5px;
                 flex: 1;
-                max-width: 600px;
-                margin: 0 24px;
+                max-width: 650px;
+                margin: 0 20px;
             }
             .desktop-deck-right {
                 display: flex;
-                align-items: center;
-                gap: 16px;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 8px;
                 flex-shrink: 0;
             }
         }
@@ -1405,7 +1479,7 @@ html_template = """<!DOCTYPE html>
                 <div class="brand-box" onclick="resetFilters()">
                     <div class="brand-icon">👑</div>
                     <div>
-                        <div class="brand-title">WEDDING DJ</div>
+                        <div class="brand-title">WEDDING DJ PRO</div>
                         <div class="brand-subtitle">10-12 DEC 2026</div>
                     </div>
                 </div>
@@ -1499,7 +1573,7 @@ html_template = """<!DOCTYPE html>
             </main>
         </div>
 
-        <!-- Sticky Bottom Mini Player -->
+        <!-- Sticky Bottom Master DJ Bar -->
         <footer class="bottom-mini-player" id="mini-player-bar">
             <!-- Scrubber line on top -->
             <div class="mini-progress-bar" id="mini-scrubber-track">
@@ -1519,13 +1593,40 @@ html_template = """<!DOCTYPE html>
 
             <!-- Desktop Controls Center (>768px) -->
             <div class="desktop-deck-center desktop-only">
-                <div style="display:flex; align-items:center; gap:14px;">
+                <!-- Transport Row with ⏪ -5s and ⏩ +5s -->
+                <div style="display:flex; align-items:center; gap:10px;">
                     <button class="btn-mini-ctrl" onclick="toggleShuffle()" id="btn-desk-shuffle" title="Shuffle (S)">🔀</button>
                     <button class="btn-mini-ctrl" onclick="playPrev()" title="Previous (Left Arrow)">⏮</button>
+                    <button class="btn-sheet-jump" onclick="jumpSeconds(-5)" title="Jump Back 5s ([ or J)">⏪ 5s</button>
                     <button class="btn-mini-play" onclick="togglePlayPause()" id="btn-desk-play" title="Play/Pause (Space)">▶</button>
-                    <button class="btn-mini-ctrl" onclick="playNext()" title="Next (Right Arrow)">⏭</button>
+                    <button class="btn-sheet-jump" onclick="jumpSeconds(5)" title="Jump Forward 5s (] or L)">5s ⏩</button>
+                    <button class="btn-mini-ctrl" onclick="smoothCrossfadeNext()" title="Next / Crossfade (Right Arrow)">⏭</button>
                     <button class="btn-mini-ctrl" onclick="toggleRepeat()" id="btn-desk-repeat" title="Repeat (R)">🔁</button>
                 </div>
+
+                <!-- DJ Quick Tweak Bar (Intro Skip, Speed, Bass Boost) -->
+                <div class="dj-tweak-row">
+                    <span style="color:var(--text-muted); font-size:10px; font-weight:700;">⚡ START:</span>
+                    <div class="dj-pill-group">
+                        <button class="dj-pill" id="pill-skip-0" onclick="setIntroSkip(0)">0s</button>
+                        <button class="dj-pill" id="pill-skip-3" onclick="setIntroSkip(3)">3s</button>
+                        <button class="dj-pill active" id="pill-skip-5" onclick="setIntroSkip(5)">5s ⭐</button>
+                        <button class="dj-pill" id="pill-skip-8" onclick="setIntroSkip(8)">8s</button>
+                    </div>
+
+                    <span style="color:var(--text-muted); font-size:10px; font-weight:700; margin-left:6px;">🎚️ TEMPO:</span>
+                    <div class="dj-pill-group">
+                        <button class="dj-pill active" id="pill-spd-1" onclick="setPlaybackSpeed(1.0)">1.0x</button>
+                        <button class="dj-pill" id="pill-spd-105" onclick="setPlaybackSpeed(1.05)">1.05x</button>
+                        <button class="dj-pill" id="pill-spd-110" onclick="setPlaybackSpeed(1.10)">1.10x 🔥</button>
+                        <button class="dj-pill" id="pill-spd-115" onclick="setPlaybackSpeed(1.15)">1.15x 🚀</button>
+                    </div>
+
+                    <button class="btn-dj-neon" id="btn-bass-boost" onclick="toggleBassBoost()">💥 BASS BOOST</button>
+                    <button class="btn-dj-neon party" id="btn-party-mix" onclick="togglePartyMix()">🕺 PARTY MIX</button>
+                </div>
+
+                <!-- Scrubber Slider -->
                 <div style="display:flex; align-items:center; gap:8px; width:100%; font-size:11px; color:var(--text-muted);">
                     <span id="desk-time-cur">00:00</span>
                     <input type="range" class="sheet-slider" id="desk-progress-slider" min="0" max="100" value="0">
@@ -1536,30 +1637,33 @@ html_template = """<!DOCTYPE html>
             <!-- Desktop Controls Right (>768px) -->
             <div class="desktop-deck-right desktop-only">
                 <div style="display:flex; align-items:center; gap:6px;">
-                    <span>🔊</span>
-                    <input type="range" class="sheet-slider" id="desk-vol-slider" min="0" max="1" step="0.05" value="0.9" style="width:80px;">
+                    <span style="font-size:12px;">🔊</span>
+                    <input type="range" class="sheet-slider" id="desk-vol-slider" min="0" max="1" step="0.05" value="0.9" style="width:75px;">
                 </div>
                 <div style="display:flex; gap:4px;">
                     <button class="btn-fx-pad" onclick="playFX('horn')" title="Air Horn (1)"><span class="icon">🎺</span>Horn</button>
                     <button class="btn-fx-pad" onclick="playFX('dhol')" title="Dhol (2)"><span class="icon">🥁</span>Dhol</button>
                     <button class="btn-fx-pad" onclick="playFX('cheer')" title="Cheer (3)"><span class="icon">👏</span>Cheer</button>
                     <button class="btn-fx-pad" onclick="playFX('scratch')" title="Scratch (4)"><span class="icon">🎚️</span>Scratch</button>
+                    <button class="btn-fx-pad" onclick="playFX('siren')" title="Club Siren (5)"><span class="icon">🚨</span>Siren</button>
                 </div>
             </div>
 
             <!-- Mobile Controls Right (<768px) -->
             <div class="mini-right-controls mobile-only">
+                <button class="btn-sheet-jump" onclick="jumpSeconds(-5)" style="width:36px; height:36px; font-size:10px;">-5s</button>
                 <button class="btn-mini-play" id="btn-mini-play" onclick="togglePlayPause()">▶</button>
-                <button class="btn-mini-ctrl" id="btn-mini-next" onclick="playNext()">⏭</button>
+                <button class="btn-sheet-jump" onclick="jumpSeconds(5)" style="width:36px; height:36px; font-size:10px;">+5s</button>
+                <button class="btn-mini-ctrl" id="btn-mini-next" onclick="smoothCrossfadeNext()">⏭</button>
             </div>
         </footer>
     </div>
 
-    <!-- Mobile Fullscreen DJ Deck Sheet -->
+    <!-- Mobile Fullscreen Pro DJ Deck Sheet -->
     <div class="mobile-dj-sheet" id="mobile-dj-sheet">
         <div class="sheet-top-bar">
             <div class="sheet-minimize" onclick="closeSheet()">▼ Minimize</div>
-            <div style="font-size:12px; font-weight:700; color:var(--gold);" id="sheet-header-cero">HALDI CEREMONY</div>
+            <div style="font-size:12px; font-weight:700; color:var(--gold);" id="sheet-header-cero">WEDDING DJ PRO</div>
             <button class="btn-card-act" id="sheet-fav-btn" onclick="toggleFavCurrent()">🤍</button>
         </div>
 
@@ -1587,30 +1691,61 @@ html_template = """<!DOCTYPE html>
             </div>
         </div>
 
-        <!-- Big Controls Row -->
+        <!-- Big Controls Row with ⏪ -5s and ⏩ +5s -->
         <div class="sheet-ctrls-row">
             <button class="btn-sheet-sub" id="sheet-shuffle-btn" onclick="toggleShuffle()">🔀</button>
             <button class="btn-sheet-sub" onclick="playPrev()">⏮</button>
+            <button class="btn-sheet-jump" onclick="jumpSeconds(-5)" style="width:44px; height:44px;">⏪ 5s</button>
             <button class="btn-sheet-hero" id="sheet-play-btn" onclick="togglePlayPause()">▶</button>
-            <button class="btn-sheet-sub" onclick="playNext()">⏭</button>
+            <button class="btn-sheet-jump" onclick="jumpSeconds(5)" style="width:44px; height:44px;">5s ⏩</button>
+            <button class="btn-sheet-sub" onclick="smoothCrossfadeNext()">⏭</button>
             <button class="btn-sheet-sub" id="sheet-repeat-btn" onclick="toggleRepeat()">🔁</button>
         </div>
 
-        <!-- DJ Sound FX Section -->
+        <!-- Mobile DJ Pro Tweaks (Fast Start, Tempo, Bass Boost) -->
+        <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:12px; padding:10px; margin-top:4px; display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+                <span style="font-size:11px; font-weight:700; color:var(--text-muted);">⚡ INTRO SKIP:</span>
+                <div class="dj-pill-group">
+                    <button class="dj-pill" id="m-skip-0" onclick="setIntroSkip(0)">OFF</button>
+                    <button class="dj-pill" id="m-skip-3" onclick="setIntroSkip(3)">3s</button>
+                    <button class="dj-pill active" id="m-skip-5" onclick="setIntroSkip(5)">5s ⭐</button>
+                    <button class="dj-pill" id="m-skip-8" onclick="setIntroSkip(8)">8s</button>
+                </div>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+                <span style="font-size:11px; font-weight:700; color:var(--text-muted);">🎚️ DJ TEMPO:</span>
+                <div class="dj-pill-group">
+                    <button class="dj-pill active" id="m-spd-1" onclick="setPlaybackSpeed(1.0)">1.0x</button>
+                    <button class="dj-pill" id="m-spd-105" onclick="setPlaybackSpeed(1.05)">1.05x</button>
+                    <button class="dj-pill" id="m-spd-110" onclick="setPlaybackSpeed(1.10)">1.10x 🔥</button>
+                    <button class="dj-pill" id="m-spd-115" onclick="setPlaybackSpeed(1.15)">1.15x 🚀</button>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:6px;">
+                <button class="btn-dj-neon" id="m-bass-boost" style="flex:1; justify-content:center; padding:7px;" onclick="toggleBassBoost()">💥 BASS BOOST</button>
+                <button class="btn-dj-neon party" id="m-party-mix" style="flex:1; justify-content:center; padding:7px;" onclick="togglePartyMix()">🕺 PARTY MIX</button>
+            </div>
+        </div>
+
+        <!-- DJ Sound FX Section (5 Pads) -->
         <div class="sheet-fx-section">
-            <div class="sheet-fx-title">🔥 Live DJ Hype FX Pads</div>
+            <div class="sheet-fx-title">🔥 Live DJ Hype Drops</div>
             <div class="sheet-fx-grid">
                 <button class="btn-fx-pad" onclick="playFX('horn')"><span class="icon">🎺</span>Air Horn</button>
                 <button class="btn-fx-pad" onclick="playFX('dhol')"><span class="icon">🥁</span>Dhol Beat</button>
-                <button class="btn-fx-pad" onclick="playFX('cheer')"><span class="icon">👏</span>Crowd Cheer</button>
-                <button class="btn-fx-pad" onclick="playFX('scratch')"><span class="icon">🎚️</span>DJ Scratch</button>
+                <button class="btn-fx-pad" onclick="playFX('cheer')"><span class="icon">👏</span>Cheer</button>
+                <button class="btn-fx-pad" onclick="playFX('scratch')"><span class="icon">🎚️</span>Scratch</button>
+                <button class="btn-fx-pad" onclick="playFX('siren')"><span class="icon">🚨</span>Siren</button>
             </div>
         </div>
 
         <!-- Action Row -->
-        <div style="display:flex; gap:10px; margin-top:14px;">
-            <button class="btn-outline" style="flex:1; justify-content:center; padding:10px;" id="sheet-btn-stream" onclick="openCurrentStream()">🌐 Watch Video / Stream</button>
-            <button class="btn-outline" style="flex:1; justify-content:center; padding:10px;" onclick="addCurrentToQueue()">➕ Add to Queue</button>
+        <div style="display:flex; gap:10px; margin-top:10px;">
+            <button class="btn-outline" style="flex:1; justify-content:center; padding:8px;" id="sheet-btn-stream" onclick="openCurrentStream()">🌐 Watch Video</button>
+            <button class="btn-outline" style="flex:1; justify-content:center; padding:8px;" onclick="addCurrentToQueue()">➕ Add to Queue</button>
         </div>
     </div>
 
@@ -1677,12 +1812,16 @@ html_template = """<!DOCTYPE html>
             isPlaying: false,
             serverPathMode: 'auto', // 'auto', 'subfolder', 'root'
             retryFlipped: false,
+            skipIntroSeconds: 5,     // ⚡ Default: Auto-skip first 5 seconds!
+            playbackSpeed: 1.0,       // 🎚️ Default: 1.0x (up to 1.15x)
+            bassBoost: false,         // 💥 Subwoofer Bass Boost
+            partyMode: false,         // 🕺 Party Continuous Quick Mix
             activeDay: 'all',
             activeCero: 'all',
             activeLang: 'all',
             searchQuery: '',
             isShuffle: false,
-            repeatMode: 'all', // 'off', 'all', 'one'
+            repeatMode: 'all',        // 'off', 'all', 'one'
             favorites: new Set(),
             queue: [],
             localFilesMap: new Map(), // filename.toLowerCase() -> File object
@@ -1739,8 +1878,11 @@ html_template = """<!DOCTYPE html>
         const modeLabel = document.getElementById('mode-label');
         const modeDot = document.getElementById('mode-dot');
 
-        // --- WEB AUDIO API DJ FX GENERATOR ---
+        // --- WEB AUDIO API & SUBWOOFER BASS BOOST ---
         let audioCtx = null;
+        let audioSourceNode = null;
+        let bassFilterNode = null;
+
         function getAudioContext() {
             if (!audioCtx) {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -1752,11 +1894,30 @@ html_template = """<!DOCTYPE html>
             return audioCtx;
         }
 
+        function setupAudioGraph() {
+            try {
+                const ctx = getAudioContext();
+                if (!audioSourceNode) {
+                    audioSourceNode = ctx.createMediaElementSource(audio);
+                    bassFilterNode = ctx.createBiquadFilter();
+                    bassFilterNode.type = 'lowshelf';
+                    bassFilterNode.frequency.value = 85; // 85Hz Sub-Bass punch!
+                    bassFilterNode.gain.value = state.bassBoost ? 9 : 0;
+                    audioSourceNode.connect(bassFilterNode);
+                    bassFilterNode.connect(ctx.destination);
+                }
+            } catch(e) {
+                // MediaElementSource requires same-origin or CORS
+                console.warn('Audio graph connection:', e);
+            }
+        }
+
         // Global touch unlock for iOS / Android mobile
         let audioUnlocked = false;
         function unlockAudioEngine() {
             if (audioUnlocked) return;
             getAudioContext();
+            setupAudioGraph();
             audio.play().then(() => {
                 audio.pause();
                 audioUnlocked = true;
@@ -1765,6 +1926,105 @@ html_template = """<!DOCTYPE html>
         document.addEventListener('touchstart', unlockAudioEngine, { passive: true });
         document.addEventListener('click', unlockAudioEngine, { passive: true });
 
+        // --- FAST INTRO SKIP & BEAT JUMP ---
+        function jumpSeconds(delta) {
+            if (!audio.duration || isNaN(audio.duration)) return;
+            audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + delta));
+            toast((delta > 0 ? `⏩ +${delta}s` : `⏪ ${delta}s`) + ` (${formatTime(audio.currentTime)})`);
+        }
+
+        function setIntroSkip(sec) {
+            state.skipIntroSeconds = sec;
+            updateDJControlsUI();
+            toast(sec === 0 ? '⚡ Intro Skip: OFF' : `⚡ Fast Beat Drop: Starts at +${sec}s`);
+        }
+
+        function setPlaybackSpeed(spd) {
+            state.playbackSpeed = spd;
+            audio.playbackRate = spd;
+            updateDJControlsUI();
+            const labels = { 1.0: 'Normal (1.0x)', 1.05: 'Groove (1.05x)', 1.10: 'High Energy (1.10x 🔥)', 1.15: 'Peak Party (1.15x 🚀)' };
+            toast(`🎚️ DJ Tempo: ${labels[spd] || spd + 'x'}`);
+        }
+
+        function toggleBassBoost() {
+            state.bassBoost = !state.bassBoost;
+            setupAudioGraph();
+            if (bassFilterNode) {
+                bassFilterNode.gain.value = state.bassBoost ? 9 : 0;
+            }
+            updateDJControlsUI();
+            toast(state.bassBoost ? '💥 BASS BOOST: ON (+9dB Subwoofer Punch!)' : '🔈 Bass Boost: OFF (Flat EQ)');
+        }
+
+        function togglePartyMix() {
+            state.partyMode = !state.partyMode;
+            updateDJControlsUI();
+            toast(state.partyMode ? '🕺 PARTY MIX: ON (Auto-mixes every 2.5 min)' : '🛑 Party Mix: OFF');
+        }
+
+        function updateDJControlsUI() {
+            // Update Intro Skip Pills
+            [0, 3, 5, 8].forEach(s => {
+                const elD = document.getElementById(`pill-skip-${s}`);
+                const elM = document.getElementById(`m-skip-${s}`);
+                if (elD) elD.classList.toggle('active', state.skipIntroSeconds === s);
+                if (elM) elM.classList.toggle('active', state.skipIntroSeconds === s);
+            });
+
+            // Update Tempo Pills
+            const speeds = [1.0, 1.05, 1.10, 1.15];
+            speeds.forEach(sp => {
+                const key = sp === 1.0 ? '1' : sp.toString().replace('.', '');
+                const elD = document.getElementById(`pill-spd-${key}`);
+                const elM = document.getElementById(`m-spd-${key}`);
+                if (elD) elD.classList.toggle('active', state.playbackSpeed === sp);
+                if (elM) elM.classList.toggle('active', state.playbackSpeed === sp);
+            });
+
+            // Bass Boost buttons
+            const btnBassD = document.getElementById('btn-bass-boost');
+            const btnBassM = document.getElementById('m-bass-boost');
+            if (btnBassD) btnBassD.classList.toggle('active', state.bassBoost);
+            if (btnBassM) btnBassM.classList.toggle('active', state.bassBoost);
+
+            // Party Mix buttons
+            const btnPartyD = document.getElementById('btn-party-mix');
+            const btnPartyM = document.getElementById('m-party-mix');
+            if (btnPartyD) btnPartyD.classList.toggle('active', state.partyMode);
+            if (btnPartyM) btnPartyM.classList.toggle('active', state.partyMode);
+        }
+
+        // --- SMOOTH DJ CROSSFADE ---
+        function smoothCrossfadeNext() {
+            if (audio.paused || audio.volume <= 0.05) {
+                playNext();
+                return;
+            }
+            const origVol = audio.volume;
+            let step = 0;
+            const steps = 6;
+            const fadeOut = setInterval(() => {
+                step++;
+                audio.volume = Math.max(0, origVol * (1 - step / steps));
+                if (step >= steps) {
+                    clearInterval(fadeOut);
+                    playNext();
+                    // Fade back in
+                    setTimeout(() => {
+                        let inStep = 0;
+                        const fadeIn = setInterval(() => {
+                            inStep++;
+                            try {
+                                audio.volume = Math.min(origVol, (inStep / steps) * origVol);
+                            } catch(e) {}
+                            if (inStep >= steps) clearInterval(fadeIn);
+                        }, 80);
+                    }, 150);
+                }
+            }, 80);
+        }
+
         // Synthesize Instant DJ FX with Web Audio API (Zero external assets, works 100% offline!)
         function playFX(type) {
             try {
@@ -1772,38 +2032,38 @@ html_template = """<!DOCTYPE html>
                 const now = ctx.currentTime;
 
                 if (type === 'horn') {
-                    // DJ Air Horn
+                    // DJ Air Horn (Classic triple tone brass)
                     [277.18, 369.99, 554.37].forEach((freq) => {
                         const osc = ctx.createOscillator();
                         const gain = ctx.createGain();
                         osc.type = 'sawtooth';
                         osc.frequency.setValueAtTime(freq, now);
-                        osc.frequency.exponentialRampToValueAtTime(freq * 0.96, now + 0.4);
-                        gain.gain.setValueAtTime(0.2, now);
-                        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+                        osc.frequency.exponentialRampToValueAtTime(freq * 0.96, now + 0.45);
+                        gain.gain.setValueAtTime(0.25, now);
+                        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
                         osc.connect(gain);
                         gain.connect(ctx.destination);
                         osc.start(now);
-                        osc.stop(now + 0.45);
+                        osc.stop(now + 0.5);
                     });
-                    toast('🎺 Air Horn!');
+                    toast('🎺 Air Horn Blast!');
                 } else if (type === 'dhol') {
-                    // Punjabi Dhol Beat
+                    // Punjabi Dhol Beat (Thumping low end membrane)
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(140, now);
-                    osc.frequency.exponentialRampToValueAtTime(45, now + 0.25);
-                    gain.gain.setValueAtTime(0.6, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc.frequency.setValueAtTime(160, now);
+                    osc.frequency.exponentialRampToValueAtTime(42, now + 0.3);
+                    gain.gain.setValueAtTime(0.7, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
                     osc.connect(gain);
                     gain.connect(ctx.destination);
                     osc.start(now);
-                    osc.stop(now + 0.3);
-                    toast('🥁 Dhol Roll!');
+                    osc.stop(now + 0.35);
+                    toast('🥁 Punjabi Dhol Roll!');
                 } else if (type === 'cheer') {
-                    // Crowd Cheer Synth
-                    const bufferSize = ctx.sampleRate * 0.8;
+                    // Crowd Cheer & Party Applause
+                    const bufferSize = ctx.sampleRate * 0.9;
                     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
                     const data = buffer.getChannelData(0);
                     for (let i = 0; i < bufferSize; i++) {
@@ -1813,32 +2073,48 @@ html_template = """<!DOCTYPE html>
                     noise.buffer = buffer;
                     const filter = ctx.createBiquadFilter();
                     filter.type = 'bandpass';
-                    filter.frequency.value = 1200;
-                    filter.Q.value = 1.2;
+                    filter.frequency.value = 1300;
+                    filter.Q.value = 1.1;
                     const gain = ctx.createGain();
                     gain.gain.setValueAtTime(0.01, now);
-                    gain.gain.linearRampToValueAtTime(0.3, now + 0.2);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+                    gain.gain.linearRampToValueAtTime(0.35, now + 0.2);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.9);
                     noise.connect(filter);
                     filter.connect(gain);
                     gain.connect(ctx.destination);
                     noise.start(now);
                     toast('👏 Crowd Cheer!');
                 } else if (type === 'scratch') {
-                    // DJ Vinyl Scratch
+                    // DJ Vinyl Backspin Scratch
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(400, now);
-                    osc.frequency.linearRampToValueAtTime(1800, now + 0.1);
-                    osc.frequency.linearRampToValueAtTime(300, now + 0.22);
-                    gain.gain.setValueAtTime(0.4, now);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                    osc.frequency.setValueAtTime(350, now);
+                    osc.frequency.linearRampToValueAtTime(2000, now + 0.12);
+                    osc.frequency.linearRampToValueAtTime(250, now + 0.25);
+                    gain.gain.setValueAtTime(0.5, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.28);
                     osc.connect(gain);
                     gain.connect(ctx.destination);
                     osc.start(now);
-                    osc.stop(now + 0.25);
+                    osc.stop(now + 0.28);
                     toast('🎚️ Vinyl Scratch!');
+                } else if (type === 'siren') {
+                    // Club Laser / Rave Buildup Siren
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(650, now);
+                    osc.frequency.linearRampToValueAtTime(1400, now + 0.2);
+                    osc.frequency.linearRampToValueAtTime(650, now + 0.4);
+                    osc.frequency.linearRampToValueAtTime(1500, now + 0.6);
+                    gain.gain.setValueAtTime(0.28, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.75);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.75);
+                    toast('🚨 Club Laser Siren!');
                 }
             } catch(e) {
                 console.warn('FX error:', e);
@@ -1891,6 +2167,7 @@ html_template = """<!DOCTYPE html>
             setupAudioEvents();
             setupKeyboardShortcuts();
             setupMobileInteractions();
+            updateDJControlsUI();
         }
 
         function detectPlaybackEnvironment() {
@@ -2235,6 +2512,15 @@ html_template = """<!DOCTYPE html>
 
             audio.load();
 
+            // ⚡ FAST START: Set intro skip offset and tempo
+            const onMeta = () => {
+                if (state.skipIntroSeconds > 0 && audio.duration > state.skipIntroSeconds + 10) {
+                    audio.currentTime = state.skipIntroSeconds;
+                }
+                audio.playbackRate = state.playbackSpeed;
+            };
+            audio.addEventListener('loadedmetadata', onMeta, { once: true });
+
             if (startPlay) {
                 const playPromise = audio.play();
                 if (playPromise !== undefined) {
@@ -2242,9 +2528,11 @@ html_template = """<!DOCTYPE html>
                         state.isPlaying = true;
                         state.isStreaming = false;
                         updatePlayStateUI();
+                        if (state.skipIntroSeconds > 0 && audio.currentTime < 1) {
+                            audio.currentTime = state.skipIntroSeconds;
+                        }
                     }).catch(err => {
                         console.warn('HTML5 audio play blocked or not found:', err);
-                        // On GitHub Pages or missing file, handle fallback
                         handlePlaybackFallback(song);
                     });
                 }
@@ -2344,7 +2632,7 @@ html_template = """<!DOCTYPE html>
 
         function playPrev() {
             if (audio.currentTime > 3) {
-                audio.currentTime = 0;
+                audio.currentTime = state.skipIntroSeconds || 0;
                 return;
             }
 
@@ -2415,14 +2703,19 @@ html_template = """<!DOCTYPE html>
                 sheetTimeDur.textContent = durFormatted;
                 deskTimeCur.textContent = curFormatted;
                 deskTimeDur.textContent = durFormatted;
+
+                // 🕺 PARTY MIX AUTO-ADVANCE: Mix out after 2.5 minutes!
+                if (state.partyMode && cur >= 150 && dur > 160) {
+                    smoothCrossfadeNext();
+                }
             });
 
             audio.addEventListener('ended', () => {
                 if (state.repeatMode === 'one') {
-                    audio.currentTime = 0;
+                    audio.currentTime = state.skipIntroSeconds || 0;
                     audio.play();
                 } else {
-                    playNext();
+                    smoothCrossfadeNext();
                 }
             });
 
@@ -2442,6 +2735,7 @@ html_template = """<!DOCTYPE html>
                         audio.play().then(() => {
                             state.isPlaying = true;
                             updatePlayStateUI();
+                            if (state.skipIntroSeconds > 0) audio.currentTime = state.skipIntroSeconds;
                         }).catch(() => {
                             handlePlaybackFallback(song);
                         });
@@ -2454,6 +2748,7 @@ html_template = """<!DOCTYPE html>
                         audio.play().then(() => {
                             state.isPlaying = true;
                             updatePlayStateUI();
+                            if (state.skipIntroSeconds > 0) audio.currentTime = state.skipIntroSeconds;
                         }).catch(() => {
                             handlePlaybackFallback(song);
                         });
@@ -2699,7 +2994,7 @@ html_template = """<!DOCTYPE html>
             document.getElementById('btn-open-queue').onclick = openQueue;
         }
 
-        // --- KEYBOARD SHORTCUTS (DESKTOP) ---
+        // --- PRO DJ KEYBOARD SHORTCUTS (DESKTOP) ---
         function setupKeyboardShortcuts() {
             window.addEventListener('keydown', (e) => {
                 if (e.target.tagName === 'INPUT') return;
@@ -2707,12 +3002,20 @@ html_template = """<!DOCTYPE html>
                 if (e.code === 'Space') {
                     e.preventDefault();
                     togglePlayPause();
-                } else if (e.code === 'ArrowRight') {
+                } else if (e.code === 'ArrowRight' && !e.shiftKey) {
                     e.preventDefault();
-                    playNext();
-                } else if (e.code === 'ArrowLeft') {
+                    smoothCrossfadeNext();
+                } else if (e.code === 'ArrowLeft' && !e.shiftKey) {
                     e.preventDefault();
                     playPrev();
+                } else if (e.code === 'BracketLeft' || e.key === 'j' || e.key === 'J' || (e.code === 'ArrowLeft' && e.shiftKey)) {
+                    // ⏪ Jump Back 5 Seconds
+                    e.preventDefault();
+                    jumpSeconds(-5);
+                } else if (e.code === 'BracketRight' || e.key === 'l' || e.key === 'L' || (e.code === 'ArrowRight' && e.shiftKey)) {
+                    // ⏩ Jump Forward 5 Seconds
+                    e.preventDefault();
+                    jumpSeconds(5);
                 } else if (e.code === 'ArrowUp') {
                     e.preventDefault();
                     audio.volume = Math.min(1, audio.volume + 0.1);
@@ -2721,10 +3024,19 @@ html_template = """<!DOCTYPE html>
                     e.preventDefault();
                     audio.volume = Math.max(0, audio.volume - 0.1);
                     deskVolSlider.value = audio.volume;
+                } else if (e.key === 'b' || e.key === 'B') {
+                    toggleBassBoost();
+                } else if (e.key === 'p' || e.key === 'P') {
+                    togglePartyMix();
+                } else if (e.key === 's' || e.key === 'S') {
+                    toggleShuffle();
+                } else if (e.key === 'r' || e.key === 'R') {
+                    toggleRepeat();
                 } else if (e.key === '1') playFX('horn');
                 else if (e.key === '2') playFX('dhol');
                 else if (e.key === '3') playFX('cheer');
                 else if (e.key === '4') playFX('scratch');
+                else if (e.key === '5') playFX('siren');
             });
         }
 
