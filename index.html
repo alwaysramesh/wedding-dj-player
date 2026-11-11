@@ -1487,6 +1487,8 @@
         const state = {
             currentIndex: -1,
             isPlaying: false,
+            serverPathMode: 'auto', // 'auto', 'subfolder', 'root'
+            retryFlipped: false,
             activeDay: 'all',
             activeCero: 'all',
             activeLang: 'all',
@@ -2013,9 +2015,17 @@
                 sourceResolved = true;
                 state.isStreaming = false;
             } else {
-                // 2. Relative file path (local server or root)
-                const inSubfolder = window.location.pathname.includes('Brother%20Wedding%20Music') || window.location.pathname.includes('Brother Wedding Music');
-                const targetPath = inSubfolder ? song.sub_path : song.root_path;
+                // 2. Smart Server Path Resolver
+                state.retryFlipped = false;
+                let targetPath = song.root_path;
+                if (state.serverPathMode === 'subfolder') {
+                    targetPath = song.sub_path;
+                } else if (state.serverPathMode === 'root') {
+                    targetPath = song.root_path;
+                } else {
+                    const inSubfolder = window.location.pathname.includes('Brother%20Wedding%20Music') || window.location.pathname.includes('Brother Wedding Music');
+                    targetPath = inSubfolder ? song.sub_path : song.root_path;
+                }
                 audio.src = encodeURI(targetPath);
             }
 
@@ -2229,9 +2239,41 @@
             });
 
             audio.addEventListener('error', (e) => {
-                if (state.currentIndex >= 0) {
-                    handlePlaybackFallback(SONGS[state.currentIndex]);
+                if (state.currentIndex < 0) return;
+                const song = SONGS[state.currentIndex];
+
+                // Auto-flip path between root_path and sub_path if server was started in Brother Wedding Music
+                if (!state.retryFlipped) {
+                    state.retryFlipped = true;
+                    const curSrc = decodeURI(audio.src || '');
+                    if (curSrc.includes('Brother Wedding Music/') || curSrc.includes('Brother%20Wedding%20Music/')) {
+                        // Server is inside Brother Wedding Music! Switch to sub_path
+                        state.serverPathMode = 'subfolder';
+                        audio.src = encodeURI(song.sub_path);
+                        audio.load();
+                        audio.play().then(() => {
+                            state.isPlaying = true;
+                            updatePlayStateUI();
+                        }).catch(() => {
+                            handlePlaybackFallback(song);
+                        });
+                        return;
+                    } else {
+                        // Server is at root! Switch to root_path
+                        state.serverPathMode = 'root';
+                        audio.src = encodeURI(song.root_path);
+                        audio.load();
+                        audio.play().then(() => {
+                            state.isPlaying = true;
+                            updatePlayStateUI();
+                        }).catch(() => {
+                            handlePlaybackFallback(song);
+                        });
+                        return;
+                    }
                 }
+
+                handlePlaybackFallback(song);
             });
 
             // Sliders Scrubbing
