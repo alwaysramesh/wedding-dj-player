@@ -23,3 +23,4 @@ echo  Press Ctrl+C to stop the server anytime.
 echo.
 python -m http.server 8080 --bind 0.0.0.0
 pause
+
