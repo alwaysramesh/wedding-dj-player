@@ -2026,8 +2026,15 @@
         }
 
         function handleFallback(song) {
-            toast(`Playing via streaming link: "${song.title}"`);
-            window.open(song.stream_url, '_blank');
+            if (song.yt_id) {
+                toast(`▶ Streaming in player: "${song.title}"`);
+                playLiveDirect(song.yt_id, song.title, song.artist);
+                return;
+            }
+            toast(`⚠️ Audio unavailable offline: "${song.title}"`);
+            // Safe fallback without blocking popup
+            const dockTitle = document.getElementById('dock-song-title');
+            if (dockTitle) dockTitle.textContent = song.title;
         }
 
         function togglePlayPause() {
@@ -2113,6 +2120,9 @@
 
         function updatePlayStateUI() {
             const playText = state.isPlaying ? '❚❚' : '▶';
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.playbackState = state.isPlaying ? 'playing' : 'paused';
+            }
             if (deskPlayBtn) deskPlayBtn.textContent = playText;
             if (mobileMiniPlayBtn) mobileMiniPlayBtn.textContent = playText;
             if (miniVinyl) miniVinyl.classList.toggle('spinning', state.isPlaying);
@@ -2348,6 +2358,7 @@
         function setupAudioEvents() {
             audio.addEventListener('play', () => {
                 state.isPlaying = true;
+                requestWakeLock();
                 updatePlayStateUI();
                 broadcastStateToRemotes();
             });
@@ -2373,8 +2384,11 @@
                 if (deskTimeCur) deskTimeCur.textContent = curFormatted;
                 if (deskTimeDur) deskTimeDur.textContent = durFormatted;
 
-                if (state.partyMode && cur >= 150 && dur > 160) {
+                if (state.partyMode && !state.isPartyCrossfading && cur >= 150 && dur > 160) {
+                    state.isPartyCrossfading = true;
+                    toast('🎛️ Auto-Crossfading to next party anthem...');
                     smoothCrossfadeNext();
+                    setTimeout(() => { state.isPartyCrossfading = false; }, 4000);
                 }
             });
 
@@ -2756,6 +2770,22 @@
             };
 
             fetchRequestsBadge();
+
+            // Local folder picker handler
+            const folderPicker = document.getElementById('local-folder-picker');
+            if (folderPicker) {
+                folderPicker.addEventListener('change', (e) => {
+                    const files = e.target.files;
+                    if (!files || files.length === 0) return;
+                    let matched = 0;
+                    for (let i = 0; i < files.length; i++) {
+                        const f = files[i];
+                        state.localFilesMap.set(f.name.toLowerCase(), f);
+                        matched++;
+                    }
+                    toast(`📁 Loaded ${matched} local audio tracks offline!`);
+                });
+            }
         }
 
         function dismissCrowdAlert() {
@@ -2907,7 +2937,8 @@
                 urlText.textContent = currentServerUrl;
                 generateQRDisplay(currentServerUrl);
             }).catch(() => {
-                currentServerUrl = window.location.origin;
+                // If on GitHub Pages or static host, use full page URL without query params
+                currentServerUrl = window.location.href.split('?')[0].split('#')[0];
                 urlText.textContent = currentServerUrl;
                 generateQRDisplay(currentServerUrl);
             });
@@ -2988,6 +3019,30 @@
         }
 
         // --- APP INITIALIZATION ---
+        
+        // --- SCREEN WAKE LOCK ENGINE (Keeps DJ Laptop & Mobile Screen Awake) ---
+        let wakeLock = null;
+        async function requestWakeLock() {
+            if ('wakeLock' in navigator) {
+                try {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    console.log('💡 DJ Screen Wake Lock Active (Screen will not sleep)');
+                } catch (err) {
+                    console.warn('Wake Lock note:', err);
+                }
+            }
+        }
+        function releaseWakeLock() {
+            if (wakeLock) {
+                wakeLock.release().then(() => { wakeLock = null; });
+            }
+        }
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && state.isPlaying) {
+                requestWakeLock();
+            }
+        });
+
         function initApp() {
             loadFavorites();
             buildCeremonyCarousel();
@@ -3026,6 +3081,22 @@
             }
 
             fetchRequestsBadge();
+
+            // Local folder picker handler
+            const folderPicker = document.getElementById('local-folder-picker');
+            if (folderPicker) {
+                folderPicker.addEventListener('change', (e) => {
+                    const files = e.target.files;
+                    if (!files || files.length === 0) return;
+                    let matched = 0;
+                    for (let i = 0; i < files.length; i++) {
+                        const f = files[i];
+                        state.localFilesMap.set(f.name.toLowerCase(), f);
+                        matched++;
+                    }
+                    toast(`📁 Loaded ${matched} local audio tracks offline!`);
+                });
+            }
         }
 
         window.addEventListener('DOMContentLoaded', initApp);
@@ -3120,8 +3191,9 @@
             closeLiveSongModal();
             toast(`🔍 Searching YouTube live for "${val}"...`);
 
-            // Check if local server backend can resolve videoId
-            if (window.location.protocol !== 'file:') {
+            // Check if running on GitHub Pages (static host without python server)
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            if (!isGitHubPages && window.location.protocol !== 'file:') {
                 fetch(`/api/search_yt?q=${encodeURIComponent(val)}`)
                     .then(r => r.json())
                     .then(data => {
