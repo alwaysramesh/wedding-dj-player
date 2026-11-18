@@ -1,18 +1,19 @@
-// Service Worker for Ramesh Wedding DJ Pro Console
-const CACHE_NAME = 'wedding-dj-cache-v1';
+// Service Worker for Ramesh Wedding DJ Pro Console (Network-First Strategy)
+const CACHE_NAME = 'wedding-dj-cache-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './manifest.json'
+  './manifest.json',
+  './qrcode.min.js'
 ];
 
 self.addEventListener('install', (e) => {
+  self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', (e) => {
@@ -29,14 +30,24 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Never intercept API calls or media streaming range requests
   const url = new URL(e.request.url);
+  // Never intercept API calls, media files, or byte ranges
   if (url.pathname.startsWith('/api/') || e.request.headers.has('range') || e.request.url.includes('.webm') || e.request.url.includes('.m4a')) {
     return;
   }
+
+  // Network-First: Always fetch the latest version from GitHub/Server, fallback to cache if offline
   e.respondWith(
-    caches.match(e.request).then((res) => {
-      return res || fetch(e.request);
-    })
+    fetch(e.request)
+      .then((response) => {
+        if (response && response.status === 200 && response.type === 'basic') {
+          const resClone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, resClone));
+        }
+        return response;
+      })
+      .catch(() => {
+        return caches.match(e.request);
+      })
   );
 });
