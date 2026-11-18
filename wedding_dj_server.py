@@ -6,6 +6,7 @@ import socket
 import threading
 import time
 import urllib.parse
+import urllib.request
 from http.server import SimpleHTTPRequestHandler
 from socketserver import ThreadingTCPServer
 
@@ -30,6 +31,30 @@ dj_state = {
 # Crowd requests
 crowd_requests = []
 request_id_counter = 1
+
+# YouTube Search Cache
+yt_search_cache = {}
+
+def search_youtube_first_id(query):
+    """Searches YouTube and returns the first matching video ID in real-time."""
+    q_norm = query.strip().lower()
+    if q_norm in yt_search_cache:
+        return yt_search_cache[q_norm]
+
+    search_term = query if any(w in q_norm for w in ['song', 'music', 'official', 'remix', 'video']) else f"{query} official song"
+    url = "https://www.youtube.com/results?search_query=" + urllib.parse.quote(search_term)
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+    try:
+        with urllib.request.urlopen(req, timeout=6) as response:
+            content = response.read().decode("utf-8", errors="ignore")
+            video_ids = re.findall(r'"videoId":"([a-zA-Z0-9_-]{11})"', content)
+            if video_ids:
+                vid = video_ids[0]
+                yt_search_cache[q_norm] = vid
+                return vid
+    except Exception as e:
+        sys.stderr.write(f"YouTube search error for {query}: {e}\\n")
+    return None
 
 # Active SSE client queues
 sse_clients = set()
@@ -142,6 +167,25 @@ class WeddingDJRequestHandler(SimpleHTTPRequestHandler):
             self.send_header('Cache-Control', 'max-age=86400')
             self.end_headers()
             self.wfile.write("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>".encode('utf-8'))
+            return
+
+        # 5. API: YouTube Instant Search
+        if path == '/api/search_yt':
+            query_params = urllib.parse.parse_qs(parsed.query)
+            q = query_params.get('q', [''])[0].strip()
+            if not q:
+                self.send_error(400, "Missing query")
+                return
+
+            vid = search_youtube_first_id(q)
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.send_header('Cache-Control', 'max-age=3600')
+            self.end_headers()
+            if vid:
+                self.wfile.write(json.dumps({"status": "ok", "videoId": vid, "query": q}).encode('utf-8'))
+            else:
+                self.wfile.write(json.dumps({"status": "not_found", "query": q}).encode('utf-8'))
             return
 
         # 5. Default static files with HTTP Range Request Support
