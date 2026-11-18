@@ -12,193 +12,1254 @@
     <script src="qrcode.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
     <style>
-    <script src="https://www.youtube.com/iframe_api">
-        
-        // ==========================================
-        // 🌐 LIVE YOUTUBE / ONLINE STREAMING ENGINE
-        // ==========================================
-        let ytPlayer = null;
-        let isYtReady = false;
-        let isLiveStreamActive = false;
-        let currentLiveTitle = '';
-
-        function onYouTubeIframeAPIReady() {
-            try {
-                ytPlayer = new YT.Player('yt-player-dock', {
-                    height: '158',
-                    width: '280',
-                    videoId: '',
-                    playerVars: {
-                        'autoplay': 1,
-                        'controls': 1,
-                        'playsinline': 1,
-                        'rel': 0
-                    },
-                    events: {
-                        'onReady': () => { isYtReady = true; },
-                        'onStateChange': onYtStateChange
-                    }
-                });
-            } catch(e) {
-                console.warn('YT iframe init note:', e);
-            }
+        :root {
+            --bg-body: #07090e;
+            --bg-surface: #0c101a;
+            --bg-sidebar: #0a0d15;
+            --bg-card: rgba(18, 23, 38, 0.75);
+            --bg-card-hover: rgba(28, 36, 58, 0.85);
+            --bg-player: rgba(10, 14, 23, 0.96);
+            --gold: #f59e0b;
+            --gold-light: #fbbf24;
+            --gold-glow: rgba(245, 158, 11, 0.4);
+            --gold-gradient: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-gold: rgba(245, 158, 11, 0.35);
+            --neon-red: #f43f5e;
+            --neon-green: #10b981;
+            --neon-cyan: #06b6d4;
+            --neon-purple: #c084fc;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
 
-        function onYtStateChange(event) {
-            if (!event || !window.YT) return;
-            if (event.data === YT.PlayerState.PLAYING) {
-                state.isPlaying = true;
-                updatePlayStateUI();
-                if (miniVinyl) miniVinyl.classList.add('spinning');
-            } else if (event.data === YT.PlayerState.PAUSED) {
-                state.isPlaying = false;
-                updatePlayStateUI();
-                if (miniVinyl) miniVinyl.classList.remove('spinning');
-            } else if (event.data === YT.PlayerState.ENDED) {
-                state.isPlaying = false;
-                isLiveStreamActive = false;
-                hideLiveDock();
-                smoothCrossfadeNext();
-            }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
-        function openLiveSongModal() {
-            document.getElementById('live-song-modal').classList.add('open');
-            setTimeout(() => {
-                const inp = document.getElementById('live-url-input');
-                if (inp) inp.focus();
-            }, 100);
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            letter-spacing: -0.01em;
         }
 
-        function closeLiveSongModal() {
-            document.getElementById('live-song-modal').classList.remove('open');
+        /* App Root Layout */
+        .app-root {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            height: 100dvh;
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
         }
 
-        function extractYtId(text) {
-            if (!text) return '';
-            text = text.trim();
-            if (/^[a-zA-Z0-9_-]{11}$/.test(text)) return text;
-            const m = text.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
-            return m ? m[1] : '';
+        /* Top Navbar */
+        .top-navbar {
+            height: 60px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            flex-shrink: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            gap: 12px;
         }
 
-        function playLiveFromInput() {
-            const input = document.getElementById('live-url-input');
-            const val = input.value.trim();
-            if (!val) {
-                toast('Please enter a song name (e.g. Tere Bina) or YouTube link');
-                return;
-            }
-
-            // 1. Direct YouTube Link / ID provided
-            const directId = extractYtId(val);
-            if (directId) {
-                playLiveDirect(directId, 'Custom YouTube Stream', 'Live Stream');
-                input.value = '';
-                closeLiveSongModal();
-                return;
-            }
-
-            // 2. Song Name entered (e.g. "Tere Bina")
-            closeLiveSongModal();
-            toast(`🔍 Searching YouTube live for "${val}"...`);
-
-            // Check if local server backend can resolve videoId
-            if (window.location.protocol !== 'file:') {
-                fetch(`/api/search_yt?q=${encodeURIComponent(val)}`)
-                    .then(r => r.json())
-                    .then(data => {
-                        if (data && data.status === 'ok' && data.videoId) {
-                            playLiveDirect(data.videoId, val, 'YouTube Live Match');
-                            toast(`▶ Playing live stream: "${val}"`);
-                        } else {
-                            // Fallback to opening YouTube in clean tab
-                            window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(val + ' official song')}`, '_blank');
-                            toast(`Opened YouTube for "${val}"`);
-                        }
-                    })
-                    .catch(() => {
-                        // GitHub Pages fallback without backend
-                        window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(val + ' official song')}`, '_blank');
-                        toast(`Opened YouTube for "${val}"`);
-                    });
-            } else {
-                window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(val + ' official song')}`, '_blank');
-                toast(`Opened YouTube for "${val}"`);
-            }
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .brand-icon {
+            font-size: 24px;
+            filter: drop-shadow(0 0 8px var(--gold-glow));
+        }
+        .brand-title {
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            color: #fff;
+            text-transform: uppercase;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand-subtitle {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 0.5px;
         }
 
-        function openLiveInYouTube() {
-            const input = document.getElementById('live-url-input');
-            const val = input.value.trim() || 'Indian Wedding Songs 2026';
-            window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(val)}`, '_blank');
-            closeLiveSongModal();
-            toast(`Opened YouTube for "${val}"`);
+        /* Mode Switcher Segmented Pills */
+        .mode-switcher-pills {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            gap: 2px;
+        }
+        .pill-mode {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .pill-mode.active {
+            background: var(--gold);
+            color: #080a10;
+            box-shadow: 0 0 14px var(--gold-glow);
         }
 
-        function playLiveDirect(ytId, title, artist) {
-            closeLiveSongModal();
-            audio.pause();
-            isLiveStreamActive = true;
-            currentLiveTitle = title;
-
-            // Show video dock in bottom corner
-            const dock = document.getElementById('live-video-dock');
-            const dockTitle = document.getElementById('dock-song-title');
-            if (dock) dock.classList.add('show');
-            if (dockTitle) dockTitle.textContent = title;
-
-            // Update bottom mini player
-            miniTitle.innerHTML = `<span class="live-stream-badge">LIVE</span> ${title}`;
-            miniSub.textContent = `${artist} • YouTube Live Stream`;
-
-            if (ytPlayer && typeof ytPlayer.loadVideoById === 'function') {
-                ytPlayer.loadVideoById(ytId);
-                ytPlayer.playVideo();
-            } else {
-                const mount = document.getElementById('yt-player-dock');
-                mount.innerHTML = `<iframe width="280" height="158" src="https://www.youtube.com/embed/${ytId}?autoplay=1&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-            }
-
-            state.isPlaying = true;
-            updatePlayStateUI();
-
-            if ('mediaSession' in navigator) {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: `[LIVE] ${title}`,
-                    artist: artist,
-                    album: "Ramesh Brother Wedding 2026 (Live Stream)"
-                });
-            }
-
-            broadcastStateToRemotes();
-            toast(`🌐 Streaming Live: "${title}"`);
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        function hideLiveDock() {
-            const dock = document.getElementById('live-video-dock');
-            if (dock) dock.classList.remove('show');
+        .btn-action-neon {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .btn-action-neon:hover {
+            background: var(--gold);
+            color: #080a10;
+        }
+        .btn-action-neon.duck {
+            border-color: var(--neon-red);
+            color: #fff;
+            background: rgba(244, 63, 94, 0.15);
+        }
+        .btn-action-neon.duck.active {
+            background: var(--neon-red);
+            color: #fff;
+            box-shadow: 0 0 16px rgba(244, 63, 94, 0.6);
+            animation: pulse-duck 1.2s infinite;
+        }
+        @keyframes pulse-duck {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(0.97); }
+        }
+        .btn-action-neon.qr {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            background: rgba(6, 182, 212, 0.12);
         }
 
-        // Toggle play/pause handler supporting both native audio & YouTube live stream
-        const baseTogglePlayPause = togglePlayPause;
-        togglePlayPause = function() {
-            if (isLiveStreamActive && ytPlayer && typeof ytPlayer.getPlayerState === 'function') {
-                const s = ytPlayer.getPlayerState();
-                if (s === 1) { // 1 = playing
-                    ytPlayer.pauseVideo();
-                    state.isPlaying = false;
-                } else {
-                    ytPlayer.playVideo();
-                    state.isPlaying = true;
-                }
-                updatePlayStateUI();
-                return;
-            }
-            baseTogglePlayPause();
-        };
+        .btn-icon {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 15px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .btn-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--border-gold);
+        }
 
-    </script>
+        .badge-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--neon-red);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 8px rgba(244, 63, 94, 0.6);
+        }
+
+        /* Live Crowd Request Alert Banner */
+        .crowd-alert-banner {
+            background: linear-gradient(90deg, #1c1505, #291e08, #1c1505);
+            border-bottom: 2px solid var(--gold);
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.25);
+            animation: slide-down 0.3s ease;
+            position: relative;
+            z-index: 99;
+        }
+        @keyframes slide-down {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #fff;
+        }
+        .alert-pulse {
+            font-size: 18px;
+            animation: bounce 1s infinite alternate;
+        }
+        @keyframes bounce {
+            from { transform: scale(1); }
+            to { transform: scale(1.25); }
+        }
+        .alert-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-alert-act {
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .btn-alert-act.play {
+            background: var(--gold);
+            color: #080a10;
+        }
+        .btn-alert-act.queue {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+        }
+        .btn-alert-act.close {
+            background: none;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Ceremony Quick Carousel */
+        .cero-carousel {
+            height: 48px;
+            background: rgba(10, 13, 21, 0.9);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 16px;
+            overflow-x: auto;
+            white-space: nowrap;
+            flex-shrink: 0;
+            scrollbar-width: none;
+        }
+        .cero-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        .cero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .cero-chip:hover {
+            background: var(--bg-card-hover);
+            color: #fff;
+        }
+        .cero-chip.active {
+            background: var(--gold);
+            color: #080a10;
+            border-color: var(--gold);
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+        .cero-count {
+            font-size: 10px;
+            opacity: 0.8;
+            background: rgba(0,0,0,0.25);
+            padding: 1px 6px;
+            border-radius: 10px;
+        }
+
+        /* Workspace */
+        .workspace {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Desktop Sidebar */
+        .desktop-sidebar {
+            width: 250px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+            padding: 16px 12px;
+            gap: 20px;
+        }
+        .sidebar-title {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+            padding: 0 8px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+        .nav-item.active {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--gold-light);
+            font-weight: 700;
+            border-left: 3px solid var(--gold);
+        }
+        .lang-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 0 8px;
+        }
+        .lang-pill {
+            padding: 4px 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            font-size: 11px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .lang-pill.active {
+            background: var(--gold);
+            color: #080a10;
+            font-weight: 700;
+        }
+
+        /* Main Stage Area */
+        .stage-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--bg-body);
+        }
+
+        /* Search Bar */
+        .search-bar-wrap {
+            padding: 14px 18px;
+            background: rgba(12, 16, 26, 0.7);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            backdrop-filter: blur(10px);
+        }
+        .search-input-box {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .search-icon-left {
+            position: absolute;
+            left: 14px;
+            font-size: 15px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+        .search-input-box input {
+            width: 100%;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            padding: 0 40px 0 42px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+        .search-input-box input:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+        .search-clear-right {
+            position: absolute;
+            right: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: none;
+            font-size: 14px;
+        }
+
+        /* Table Toolbar */
+        .table-toolbar {
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            background: rgba(10, 13, 21, 0.5);
+            gap: 10px;
+        }
+        .btn-gold {
+            background: var(--gold);
+            color: #080a10;
+            border: none;
+            padding: 7px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border: 1px solid var(--border);
+            padding: 7px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Content List Scrollable Area */
+        .content-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: calc(90px + var(--safe-bottom));
+        }
+
+        /* Desktop Table View */
+        .desktop-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .desktop-table th {
+            text-align: left;
+            padding: 12px 18px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-surface);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .desktop-table td {
+            padding: 12px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+        .desktop-table tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .desktop-table tr.playing td {
+            background: rgba(245, 158, 11, 0.08);
+            border-bottom-color: var(--border-gold);
+        }
+
+        /* Mobile Card List */
+        .mobile-song-list {
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px;
+        }
+        .m-song-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.15s ease;
+        }
+        .m-song-card:active {
+            transform: scale(0.98);
+        }
+        .m-song-card.playing {
+            border-color: var(--gold);
+            background: rgba(245, 158, 11, 0.12);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+        .m-card-idx {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+        .m-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .m-card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .m-card-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+        }
+        .m-card-badges {
+            display: flex;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .badge-chip {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+        }
+        .badge-chip.cero {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--gold-light);
+        }
+        .m-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .btn-card-act {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-card-act.is-fav {
+            color: var(--neon-red);
+        }
+        .btn-play-card {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: #080a10;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        /* Bouncing Equalizer Bars */
+        .eq-bars {
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 16px;
+        }
+        .eq-bar {
+            width: 3px;
+            background: var(--gold);
+            border-radius: 1px;
+            animation: eq-bounce 0.6s ease infinite alternate;
+        }
+        .eq-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+        .eq-bar:nth-child(2) { height: 16px; animation-delay: 0.3s; }
+        .eq-bar:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+        @keyframes eq-bounce {
+            from { height: 4px; }
+            to { height: 16px; }
+        }
+
+        /* Master Docked Bottom Player */
+        .bottom-mini-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 82px;
+            background: var(--bg-player);
+            border-top: 1px solid var(--border-gold);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px calc(var(--safe-bottom) + 6px) 20px;
+            z-index: 200;
+            backdrop-filter: blur(24px);
+            box-shadow: 0 -8px 30px rgba(0,0,0,0.7);
+        }
+        .mini-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+        .mini-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--gold-gradient);
+            box-shadow: 0 0 8px var(--gold);
+        }
+        .mini-left-content {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            min-width: 200px;
+            max-width: 280px;
+        }
+        .mini-vinyl {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #2a2a2a 0%, #111 60%, #000 100%);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            transition: transform 0.2s ease;
+        }
+        .mini-vinyl.spinning {
+            animation: spin 3s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .mini-vinyl-center {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            border: 2px solid #000;
+        }
+        .mini-track-info {
+            min-width: 0;
+        }
+        .mini-track-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .mini-track-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 2px;
+        }
+
+        /* Center Deck Controls */
+        .desktop-deck-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            max-width: 580px;
+        }
+        .btn-mini-ctrl {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 17px;
+            cursor: pointer;
+            padding: 6px;
+            transition: color 0.15s ease;
+        }
+        .btn-mini-ctrl:hover {
+            color: #fff;
+        }
+        .btn-mini-ctrl.active {
+            color: var(--gold);
+        }
+        .btn-sheet-jump {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+        }
+        .btn-mini-play {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: #080a10;
+            border: none;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 16px var(--gold-glow);
+            transition: transform 0.15s ease;
+        }
+        .btn-mini-play:hover {
+            transform: scale(1.06);
+        }
+        .dj-tweak-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dj-pill-group {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px;
+            border-radius: var(--radius-full);
+            gap: 2px;
+        }
+        .dj-pill {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+        }
+        .dj-pill.active {
+            background: var(--gold);
+            color: #080a10;
+        }
+        .btn-dj-neon {
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+        }
+        .btn-dj-neon.party {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            background: rgba(16, 185, 129, 0.12);
+        }
+        .btn-dj-neon.active {
+            background: var(--gold);
+            color: #080a10;
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+        .btn-dj-neon.party.active {
+            background: var(--neon-green);
+            color: #080a10;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+        .sheet-slider {
+            -webkit-appearance: none;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+        .sheet-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--gold);
+            cursor: pointer;
+            box-shadow: 0 0 6px var(--gold);
+        }
+
+        /* Right Deck & FX Launchpad */
+        .desktop-deck-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+            min-width: 220px;
+        }
+        .dj-launchpad {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .pad-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 4px 7px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.1s ease;
+        }
+        .pad-card:active {
+            transform: scale(0.92);
+            background: var(--gold);
+            color: #080a10;
+        }
+        .pad-icon {
+            font-size: 14px;
+        }
+        .pad-label {
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        /* Pocket Remote Fullscreen UI */
+        .pocket-remote-view {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 16px;
+            padding-bottom: calc(90px + var(--safe-bottom));
+        }
+        .pocket-remote-view.active {
+            display: flex;
+        }
+        .remote-status-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .remote-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green);
+            display: inline-block;
+            margin-right: 6px;
+        }
+        .remote-track-hero {
+            background: linear-gradient(135deg, #131726, #1c2338);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-lg);
+            padding: 24px 20px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+        .remote-song-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            margin-top: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .remote-song-artist {
+            font-size: 13px;
+            color: var(--gold-light);
+            margin-top: 4px;
+        }
+        .remote-big-transports {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 22px 0 16px 0;
+        }
+        .btn-remote-circle {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s ease;
+        }
+        .btn-remote-circle:active {
+            transform: scale(0.92);
+        }
+        .btn-remote-play {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: #080a10;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 24px var(--gold-glow);
+            transition: transform 0.1s ease;
+        }
+        .btn-remote-play:active {
+            transform: scale(0.92);
+        }
+        .remote-duck-bar {
+            width: 100%;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 800;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--neon-red);
+            background: rgba(244, 63, 94, 0.15);
+            color: #fff;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .remote-duck-bar.active {
+            background: var(--neon-red);
+            box-shadow: 0 0 20px rgba(244, 63, 94, 0.6);
+        }
+
+        /* Crowd Request Kiosk View */
+        .crowd-kiosk-view {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+            gap: 14px;
+            padding-bottom: calc(90px + var(--safe-bottom));
+        }
+        .crowd-kiosk-view.active {
+            display: flex;
+        }
+        .kiosk-welcome-banner {
+            background: linear-gradient(135deg, #1c1503, #2e2005);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            text-align: center;
+        }
+
+        /* Mobile Bottom Nav Bar (<768px) */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: rgba(7, 9, 14, 0.98);
+            border-top: 1px solid var(--border);
+            z-index: 190;
+            align-items: center;
+            justify-content: space-around;
+            padding-bottom: var(--safe-bottom);
+        }
+        .m-nav-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 700;
+            gap: 2px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border: none;
+            background: none;
+        }
+        .m-nav-tab.active {
+            color: var(--gold);
+        }
+        .m-nav-icon {
+            font-size: 18px;
+        }
+
+        /* Toast Notifications */
+        .toast-notify {
+            position: fixed;
+            bottom: 96px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(18, 23, 38, 0.95);
+            border: 1px solid var(--border-gold);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.25s ease;
+            z-index: 9999;
+            backdrop-filter: blur(12px);
+            white-space: nowrap;
+        }
+        .toast-notify.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Modals */
+        .modal-overlay-custom {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay-custom.open {
+            display: flex;
+        }
+        .modal-card-custom {
+            background: #0f131f;
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            position: relative;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .desktop-only { display: none !important; }
+            .desktop-sidebar { display: none !important; }
+            .desktop-table-wrap { display: none !important; }
+            .mobile-song-list { display: flex !important; }
+            .top-navbar { padding: 0 12px; }
+            .brand-title { font-size: 13px; }
+            .brand-subtitle { display: none; }
+            .mode-switcher-pills { display: none; }
+            .mobile-bottom-nav { display: flex; }
+            .bottom-mini-player { bottom: 56px; }
+            .toast-notify { bottom: 150px; }
+        }
+        @media (min-width: 769px) {
+            .mobile-only { display: none !important; }
+            .mobile-bottom-nav { display: none !important; }
+        }
+    
+        .btn-action-neon.live {
+            border-color: #38bdf8;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.12);
+        }
+        .btn-action-neon.live:hover {
+            background: #38bdf8;
+            color: #080a10;
+        }
+        .live-stream-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            animation: pulse-live 1.5s infinite;
+        }
+        @keyframes pulse-live {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .live-hit-pill {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.15s ease;
+        }
+        .live-hit-pill:hover {
+            border-color: var(--gold);
+            background: rgba(245, 158, 11, 0.12);
+            transform: translateX(2px);
+        }
+        .live-video-dock {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 280px;
+            background: #0c101a;
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            z-index: 195;
+            display: none;
+            transition: all 0.3s ease;
+        }
+        .live-video-dock.show {
+            display: block;
+        }
+        .live-dock-header {
+            background: #141824;
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -718,15 +1779,18 @@
         let audioUnlocked = false;
         function unlockAudioEngine() {
             if (audioUnlocked) return;
-            getAudioContext();
-            setupAudioGraph();
-            audio.play().then(() => {
-                audio.pause();
-                audioUnlocked = true;
-            }).catch(() => {});
+            try {
+                const ctx = getAudioContext();
+                if (ctx && ctx.state === 'suspended') {
+                    ctx.resume();
+                }
+            } catch(e) {}
+            audioUnlocked = true;
+            document.removeEventListener('touchstart', unlockAudioEngine);
+            document.removeEventListener('click', unlockAudioEngine);
         }
-        document.addEventListener('touchstart', unlockAudioEngine, { passive: true });
-        document.addEventListener('click', unlockAudioEngine, { passive: true });
+        document.addEventListener('touchstart', unlockAudioEngine, { passive: true, once: true });
+        document.addEventListener('click', unlockAudioEngine, { passive: true, once: true });
 
         // 1-Click Audio Ducking (Mic Announcement Mode)
         function toggleDucking(forced) {
@@ -902,6 +1966,14 @@
             state.currentIndex = idx;
             const song = SONGS[idx];
 
+            if (isLiveStreamActive) {
+                isLiveStreamActive = false;
+                if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+                    ytPlayer.pauseVideo();
+                }
+                hideLiveDock();
+            }
+
             setupAudioGraph();
 
             const filenameLower = song.filename.toLowerCase();
@@ -925,8 +1997,6 @@
             miniTitle.textContent = song.title;
             miniSub.textContent = `${song.artist} • ${song.function}`;
 
-            audio.load();
-
             const onMeta = () => {
                 if (state.skipIntroSeconds > 0 && audio.duration > state.skipIntroSeconds + 10) {
                     audio.currentTime = state.skipIntroSeconds;
@@ -944,8 +2014,7 @@
                         updateMediaSession(song);
                         broadcastStateToRemotes();
                     }).catch(err => {
-                        console.warn('Playback fallback to YouTube:', err);
-                        handleFallback(song);
+                        console.warn('Playback error:', err);
                     });
                 }
             } else {
@@ -962,21 +2031,28 @@
         }
 
         function togglePlayPause() {
+            if (isLiveStreamActive && ytPlayer && typeof ytPlayer.getPlayerState === 'function') {
+                const s = ytPlayer.getPlayerState();
+                if (s === 1) { // 1 = playing
+                    ytPlayer.pauseVideo();
+                    state.isPlaying = false;
+                } else {
+                    ytPlayer.playVideo();
+                    state.isPlaying = true;
+                }
+                updatePlayStateUI();
+                return;
+            }
+
             if (state.currentIndex === -1) {
                 playByIndex(0, true);
                 return;
             }
+
             if (audio.paused) {
-                audio.play().then(() => {
-                    state.isPlaying = true;
-                    updatePlayStateUI();
-                    broadcastStateToRemotes();
-                }).catch(() => {});
+                audio.play().catch(e => console.warn('Play error:', e));
             } else {
                 audio.pause();
-                state.isPlaying = false;
-                updatePlayStateUI();
-                broadcastStateToRemotes();
             }
         }
 
@@ -1146,7 +2222,7 @@
 
                         return `
                             <div class="m-song-card ${isPlayingCur ? 'playing' : ''}" id="m-card-${s.id}">
-                                <div class="m-card-idx" onclick="playSongById(${s.id})">
+                                <div class="m-card-idx" onclick="event.stopPropagation(); playSongById(${s.id})">
                                     ${isPlayingCur ? `
                                         <div class="eq-bars">
                                             <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
@@ -1203,7 +2279,7 @@
                                 <div style="display:inline-flex; gap:6px;">
                                     <button class="btn-card-act ${isFav ? 'is-fav' : ''}" onclick="toggleFav(${s.id})">${isFav ? '❤️' : '🤍'}</button>
                                     <button class="btn-card-act" onclick="addToQueue(${s.id})" title="Queue">➕</button>
-                                    <button class="btn-gold" style="padding:4px 10px; font-size:11px;" onclick="playSongById(${s.id})">${isPlayingCur ? '❚❚ Pause' : '▶ Play'}</button>
+                                    <button class="btn-gold" style="padding:4px 10px; font-size:11px;" onclick="event.stopPropagation(); playSongById(${s.id})">${isPlayingCur ? '❚❚ Pause' : '▶ Play'}</button>
                                 </div>
                             </td>
                         </tr>
@@ -1270,6 +2346,18 @@
 
         // --- AUDIO EVENT LISTENERS ---
         function setupAudioEvents() {
+            audio.addEventListener('play', () => {
+                state.isPlaying = true;
+                updatePlayStateUI();
+                broadcastStateToRemotes();
+            });
+
+            audio.addEventListener('pause', () => {
+                state.isPlaying = false;
+                updatePlayStateUI();
+                broadcastStateToRemotes();
+            });
+
             audio.addEventListener('timeupdate', () => {
                 if (!audio.duration || isNaN(audio.duration)) return;
                 const cur = audio.currentTime;
