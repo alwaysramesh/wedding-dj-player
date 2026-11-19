@@ -1,5 +1,5 @@
 // Service Worker for Ramesh Wedding DJ Pro Console (Network-First Strategy)
-const CACHE_NAME = 'wedding-dj-cache-v4';
+const CACHE_NAME = 'wedding-dj-cache-v5';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

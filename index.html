@@ -284,6 +284,64 @@
             font-size: 14px;
         }
 
+        /* Language Quick Carousel (Mobile & Desktop) */
+        .lang-carousel {
+            height: 40px;
+            background: rgba(14, 18, 28, 0.95);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 16px;
+            overflow-x: auto;
+            white-space: nowrap;
+            flex-shrink: 0;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .lang-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        .lang-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text-muted);
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            user-select: none;
+        }
+        .lang-chip:hover {
+            color: #fff;
+            border-color: rgba(245, 158, 11, 0.4);
+            background: var(--bg-card-hover);
+        }
+        .lang-chip.active {
+            background: var(--gold-gradient);
+            border-color: var(--gold);
+            color: #07090e;
+            font-weight: 800;
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+        .lang-count {
+            display: inline-block;
+            padding: 1px 6px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            font-size: 10px;
+        }
+        .lang-chip.active .lang-count {
+            background: rgba(0, 0, 0, 0.35);
+            color: #fff;
+        }
+
         /* Ceremony Quick Carousel */
         .cero-carousel {
             height: 48px;
@@ -1321,6 +1379,9 @@
         <!-- Ceremony Quick Carousel -->
         <nav class="cero-carousel" id="cero-carousel"></nav>
 
+        <!-- Mobile & Desktop Language Filter Carousel -->
+        <nav class="lang-carousel" id="lang-carousel"></nav>
+
         <!-- Workspace Container -->
         <div class="workspace">
             <!-- Desktop Sidebar -->
@@ -1672,6 +1733,14 @@
             { key: 'day3', name: '12 Dec: Wedding Day' },
             { key: 'bagheli', name: '🌾 Bagheli Folk' },
             { key: 'bhojpuri', name: '🎉 Bhojpuri Hits' }
+        ];
+
+        const LANGUAGES = [
+            { id: 'all', name: 'All Languages', icon: '🌐' },
+            { id: 'Hindi & Bollywood', name: 'Hindi & Bollywood', icon: '🎬' },
+            { id: 'Punjabi', name: 'Punjabi', icon: '🪘' },
+            { id: 'Bhojpuri', name: 'Bhojpuri Hits', icon: '🎉' },
+            { id: 'Bagheli', name: 'Bagheli Folk', icon: '🌾' }
         ];
 
         const CEREMONIES = [
@@ -2170,6 +2239,7 @@
         function selectCeremony(ceroId) {
             state.activeCero = ceroId;
             buildCeremonyCarousel();
+            buildLanguageCarousel();
             buildDesktopNavigation();
             renderSongList();
         }
@@ -2183,7 +2253,11 @@
         function selectLang(lang) {
             state.activeLang = lang;
             buildDesktopNavigation();
+            buildLanguageCarousel();
             renderSongList();
+            if (lang !== 'all') {
+                toast(`🌍 Filtered: ${lang}`);
+            }
         }
 
         function resetFilters() {
@@ -2194,6 +2268,7 @@
             document.getElementById('main-search-input').value = '';
             document.getElementById('search-clear-btn').style.display = 'none';
             buildCeremonyCarousel();
+            buildLanguageCarousel();
             buildDesktopNavigation();
             renderSongList();
             toast('All filters reset');
@@ -2211,6 +2286,9 @@
             else if (state.activeDay !== 'all') {
                 const found = DAYS.find(d => d.key === state.activeDay);
                 if (found) titleStr = found.name;
+            }
+            if (state.activeLang !== 'all') {
+                titleStr += ` • ${state.activeLang}`;
             }
             if (stageTitle) stageTitle.textContent = titleStr;
             if (stageMeta) stageMeta.textContent = `${filtered.length} Songs • Instant High-Res Play`;
@@ -2299,6 +2377,30 @@
         }
 
         // --- CAROUSEL & NAVIGATION BUILDERS ---
+        
+        function buildLanguageCarousel() {
+            const carousel = document.getElementById('lang-carousel');
+            if (!carousel) return;
+
+            const counts = {};
+            SONGS.forEach(s => {
+                counts[s.language] = (counts[s.language] || 0) + 1;
+            });
+
+            carousel.innerHTML = LANGUAGES.map(l => {
+                const active = state.activeLang === l.id ? 'active' : '';
+                const count = l.id === 'all' ? SONGS.length : (counts[l.id] || 0);
+
+                return `
+                    <div class="lang-chip ${active}" onclick="selectLang('${l.id}')">
+                        <span>${l.icon}</span>
+                        <span>${l.name}</span>
+                        <span class="lang-count">${count}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
         function buildCeremonyCarousel() {
             const carousel = document.getElementById('cero-carousel');
             if (!carousel) return;
@@ -2614,6 +2716,7 @@
             const crowdView = document.getElementById('crowd-kiosk-view');
             const miniPlayerBar = document.getElementById('mini-player-bar');
             const ceroCarousel = document.getElementById('cero-carousel');
+            const langCarousel = document.getElementById('lang-carousel');
             const desktopSidebar = document.querySelector('.desktop-sidebar');
 
             if (mode === 'stage') {
@@ -2622,6 +2725,7 @@
                 if (crowdView) crowdView.classList.remove('active');
                 if (miniPlayerBar) miniPlayerBar.style.display = 'flex';
                 if (ceroCarousel) ceroCarousel.style.display = 'flex';
+                if (langCarousel) langCarousel.style.display = 'flex';
                 if (desktopSidebar && window.innerWidth >= 768) desktopSidebar.style.display = 'flex';
             } else if (mode === 'remote') {
                 if (stageArea) stageArea.style.display = 'none';
@@ -2629,6 +2733,7 @@
                 if (crowdView) crowdView.classList.remove('active');
                 if (miniPlayerBar) miniPlayerBar.style.display = 'none';
                 if (ceroCarousel) ceroCarousel.style.display = 'none';
+                if (langCarousel) langCarousel.style.display = 'none';
                 if (desktopSidebar) desktopSidebar.style.display = 'none';
                 updateRemoteUI();
             } else if (mode === 'crowd') {
@@ -2637,6 +2742,7 @@
                 if (crowdView) crowdView.classList.add('active');
                 if (miniPlayerBar) miniPlayerBar.style.display = 'none';
                 if (ceroCarousel) ceroCarousel.style.display = 'none';
+                if (langCarousel) langCarousel.style.display = 'none';
                 if (desktopSidebar) desktopSidebar.style.display = 'none';
                 renderKioskSongs();
             }
@@ -3046,6 +3152,7 @@
         function initApp() {
             loadFavorites();
             buildCeremonyCarousel();
+            buildLanguageCarousel();
             buildDesktopNavigation();
             renderSongList();
             setupAudioEvents();
