@@ -1224,6 +1224,260 @@
             cursor: pointer;
         }
 
+        
+        /* Now Playing Mobile Manager Sheet */
+        .now-playing-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(7, 9, 14, 0.88);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            z-index: 9999;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .now-playing-modal.open {
+            display: flex;
+            animation: fadeIn 0.25s ease;
+        }
+        .now-playing-sheet {
+            width: 100%;
+            max-width: 520px;
+            max-height: 94vh;
+            background: linear-gradient(180deg, #101524 0%, #080a10 100%);
+            border: 1px solid var(--border-gold);
+            border-bottom: none;
+            border-radius: 28px 28px 0 0;
+            box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 14px 20px calc(var(--safe-bottom) + 24px) 20px;
+            animation: slideUpSheet 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes slideUpSheet {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .sheet-drag-handle {
+            width: 44px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            margin: 0 auto 12px auto;
+            cursor: pointer;
+        }
+        .sheet-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .sheet-header-title {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+        .sheet-close-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .sheet-hero-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 4px 0 10px 0;
+        }
+        .sheet-big-vinyl {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #252a36 0%, #11141c 55%, #05070a 100%);
+            border: 3px solid rgba(245, 158, 11, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(245, 158, 11, 0.2);
+            margin-bottom: 12px;
+        }
+        .sheet-big-vinyl.spinning {
+            animation: spin 3s linear infinite;
+        }
+        .sheet-big-vinyl-center {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            border: 3px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .sheet-song-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+            max-width: 90%;
+            line-height: 1.3;
+        }
+        .sheet-song-artist {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .sheet-badges-row {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .sheet-scrubber-box {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+        .sheet-slider-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        .sheet-time-text {
+            font-size: 12px;
+            font-family: monospace;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+        .sheet-transports {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .sheet-btn-play {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            border: none;
+            color: #07090e;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px var(--gold-glow);
+            transition: transform 0.15s ease;
+        }
+        .sheet-btn-play:active {
+            transform: scale(0.92);
+        }
+        .sheet-btn-ctrl {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: #fff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .sheet-btn-jump {
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid var(--border-gold);
+            color: var(--gold-light);
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .sheet-section-box {
+            background: rgba(18, 23, 38, 0.6);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            margin-bottom: 12px;
+        }
+        .sheet-section-label {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sheet-pill-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+        .sheet-pill {
+            padding: 8px 4px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-size: 11.5px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+        }
+        .sheet-pill.active {
+            background: var(--gold-gradient);
+            border-color: var(--gold);
+            color: #07090e;
+            font-weight: 800;
+        }
+        /* Mobile mini controls on bottom bar */
+        .btn-mini-jump-m {
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid var(--border-gold);
+            border-radius: var(--radius-sm);
+            color: var(--gold-light);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 6px 8px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn-mini-next-m {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
         /* Responsive Breakpoints */
         @media (max-width: 768px) {
             .desktop-only { display: none !important; }
@@ -1539,7 +1793,7 @@
             </div>
 
             <!-- Left: vinyl + song info -->
-            <div class="mini-left-content" id="mini-expand-trigger">
+            <div class="mini-left-content" id="mini-expand-trigger" onclick="openNowPlayingModal()" title="Tap to Open Now Playing Manager">
                 <div class="mini-vinyl" id="mini-vinyl">
                     <div class="mini-vinyl-center"></div>
                 </div>
@@ -1622,8 +1876,11 @@
             </div>
 
             <!-- Mobile Play/Pause Button in Mini-Bar -->
-            <div class="mobile-only" style="display:flex; align-items:center; gap:8px;">
-                <button class="btn-mini-play" onclick="togglePlayPause()" id="btn-mobile-mini-play">▶</button>
+            <div class="mobile-only" style="display:flex; align-items:center; gap:6px;">
+                <button class="btn-mini-jump-m" onclick="event.stopPropagation(); jumpSeconds(-5)" title="Rewind 5s">⏪ 5s</button>
+                <button class="btn-mini-play" onclick="event.stopPropagation(); togglePlayPause()" id="btn-mobile-mini-play">▶</button>
+                <button class="btn-mini-jump-m" onclick="event.stopPropagation(); jumpSeconds(5)" title="Jump 5s">5s ⏩</button>
+                <button class="btn-mini-next-m" onclick="event.stopPropagation(); smoothCrossfadeNext()" title="Next Track">⏭</button>
             </div>
         </footer>
 
@@ -1653,6 +1910,121 @@
     </div>
 
     <!-- Modals -->
+    
+    <!-- Now Playing Mobile & Full Manager Modal -->
+    <div class="now-playing-modal" id="now-playing-modal" onclick="if(event.target===this) closeNowPlayingModal()">
+        <div class="now-playing-sheet">
+            <div class="sheet-drag-handle" onclick="closeNowPlayingModal()"></div>
+
+            <div class="sheet-header">
+                <span class="sheet-header-title">👑 NOW PLAYING DJ MANAGER</span>
+                <button class="sheet-close-btn" onclick="closeNowPlayingModal()" title="Minimize">✕</button>
+            </div>
+
+            <!-- Vinyl & Track Details -->
+            <div class="sheet-hero-card">
+                <div class="sheet-big-vinyl" id="sheet-vinyl">
+                    <div class="sheet-big-vinyl-center">🎵</div>
+                </div>
+                <div class="sheet-song-title" id="sheet-song-title">Select Track to Play</div>
+                <div class="sheet-song-artist" id="sheet-song-artist">Ramesh Brother Wedding 2026</div>
+                <div class="sheet-badges-row">
+                    <span class="badge-chip cero" id="sheet-badge-cero">Ceremony</span>
+                    <span class="badge-chip" id="sheet-badge-lang">Language</span>
+                </div>
+            </div>
+
+            <!-- Scrubber Slider -->
+            <div class="sheet-scrubber-box">
+                <div class="sheet-slider-row">
+                    <span class="sheet-time-text" id="sheet-time-cur">00:00</span>
+                    <input type="range" class="sheet-slider" id="sheet-progress-slider" min="0" max="100" value="0">
+                    <span class="sheet-time-text" id="sheet-time-dur">00:00</span>
+                </div>
+            </div>
+
+            <!-- Main Big Transport Controls -->
+            <div class="sheet-transports">
+                <button class="sheet-btn-ctrl" onclick="playPrev()" title="Previous Track">⏮</button>
+                <button class="sheet-btn-jump" onclick="jumpSeconds(-5)" title="Rewind 5s">⏪ 5s</button>
+                <button class="sheet-btn-play" onclick="togglePlayPause()" id="sheet-btn-play">▶</button>
+                <button class="sheet-btn-jump" onclick="jumpSeconds(5)" title="Jump Forward 5s">5s ⏩</button>
+                <button class="sheet-btn-ctrl" onclick="smoothCrossfadeNext()" title="Next Track">⏭</button>
+            </div>
+
+            <!-- Intro Skip Seconds Group (Crucial user request) -->
+            <div class="sheet-section-box">
+                <div class="sheet-section-label">
+                    <span>⚡ BEAT DROP INTRO SKIP (Auto-Skip Boring Intro)</span>
+                </div>
+                <div class="sheet-pill-grid">
+                    <div class="sheet-pill" id="sheet-pill-skip-0" onclick="setIntroSkip(0)">0s (Off)</div>
+                    <div class="sheet-pill" id="sheet-pill-skip-3" onclick="setIntroSkip(3)">3s</div>
+                    <div class="sheet-pill active" id="sheet-pill-skip-5" onclick="setIntroSkip(5)">5s ⭐</div>
+                    <div class="sheet-pill" id="sheet-pill-skip-8" onclick="setIntroSkip(8)">8s 🔥</div>
+                </div>
+            </div>
+
+            <!-- DJ Tempo / Speed Control -->
+            <div class="sheet-section-box">
+                <div class="sheet-section-label">
+                    <span>🎚️ DJ TEMPO / SPEED CONTROL</span>
+                </div>
+                <div class="sheet-pill-grid">
+                    <div class="sheet-pill active" id="sheet-pill-spd-1" onclick="setPlaybackSpeed(1.0)">1.0x (Normal)</div>
+                    <div class="sheet-pill" id="sheet-pill-spd-105" onclick="setPlaybackSpeed(1.05)">1.05x (+5%)</div>
+                    <div class="sheet-pill" id="sheet-pill-spd-110" onclick="setPlaybackSpeed(1.10)">1.10x 🔥</div>
+                    <div class="sheet-pill" id="sheet-pill-spd-115" onclick="setPlaybackSpeed(1.15)">1.15x 🚀</div>
+                </div>
+            </div>
+
+            <!-- DJ Sound FX Launchpad -->
+            <div class="sheet-section-box">
+                <div class="sheet-section-label">
+                    <span>📢 STAGE SOUND EFFECTS (Instant Blast)</span>
+                </div>
+                <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px;">
+                    <button class="pad-card" onclick="triggerFX('horn', this)">
+                        <span class="pad-icon">🎺</span>
+                        <span class="pad-label">Horn</span>
+                    </button>
+                    <button class="pad-card" onclick="triggerFX('dhol', this)">
+                        <span class="pad-icon">🥁</span>
+                        <span class="pad-label">Dhol</span>
+                    </button>
+                    <button class="pad-card" onclick="triggerFX('cheer', this)">
+                        <span class="pad-icon">👏</span>
+                        <span class="pad-label">Cheer</span>
+                    </button>
+                    <button class="pad-card" onclick="triggerFX('siren', this)">
+                        <span class="pad-icon">🚨</span>
+                        <span class="pad-label">Siren</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stage Audio Enhancements -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:12px;">
+                <button class="btn-dj-neon" id="sheet-btn-duck" onclick="toggleDucking()" style="padding:10px 8px; font-size:11px; font-weight:800; justify-content:center;">
+                    🎙️ MIC DUCK
+                </button>
+                <button class="btn-dj-neon" id="sheet-btn-bass" onclick="toggleBassBoost()" style="padding:10px 8px; font-size:11px; font-weight:800; justify-content:center;">
+                    💥 BASS BOOST
+                </button>
+            </div>
+
+            <!-- Quick Action Links -->
+            <div style="display:flex; gap:8px;">
+                <button class="btn-secondary" id="sheet-btn-fav" onclick="toggleFavCurSong()" style="flex:1; padding:10px; font-size:12px;">
+                    ❤️ Favorite
+                </button>
+                <button class="btn-secondary" onclick="openQueue(); closeNowPlayingModal();" style="flex:1; padding:10px; font-size:12px;">
+                    📑 View Queue
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- QR Code Connect Modal -->
     <div class="modal-overlay-custom" id="qr-modal-overlay">
         <div class="modal-card-custom">
@@ -1986,6 +2358,8 @@
             [0, 3, 5, 8].forEach(s => {
                 const el = document.getElementById(`pill-skip-${s}`);
                 if (el) el.classList.toggle('active', s === sec);
+                const sheetEl = document.getElementById(`sheet-pill-skip-${s}`);
+                if (sheetEl) sheetEl.classList.toggle('active', s === sec);
             });
             toast(sec === 0 ? '⚡ Intro Skip: OFF' : `⚡ Beat Drop Intro Skip: +${sec}s`);
         }
@@ -1997,6 +2371,8 @@
                 const key = s === 1.0 ? '1' : s.toString().replace('.', '');
                 const el = document.getElementById(`pill-spd-${key}`);
                 if (el) el.classList.toggle('active', s === spd);
+                const sheetEl = document.getElementById(`sheet-pill-spd-${key}`);
+                if (sheetEl) sheetEl.classList.toggle('active', s === spd);
             });
             toast(`🎚️ DJ Tempo: ${spd}x`);
         }
@@ -2065,6 +2441,15 @@
 
             miniTitle.textContent = song.title;
             miniSub.textContent = `${song.artist} • ${song.function}`;
+
+            const sheetTitle = document.getElementById('sheet-song-title');
+            const sheetArtist = document.getElementById('sheet-song-artist');
+            const sheetCero = document.getElementById('sheet-badge-cero');
+            const sheetLang = document.getElementById('sheet-badge-lang');
+            if (sheetTitle) sheetTitle.textContent = song.title;
+            if (sheetArtist) sheetArtist.textContent = `${song.artist}${song.movie ? ' • ' + song.movie : ''}`;
+            if (sheetCero) sheetCero.textContent = song.function;
+            if (sheetLang) sheetLang.textContent = song.language;
 
             const onMeta = () => {
                 if (state.skipIntroSeconds > 0 && audio.duration > state.skipIntroSeconds + 10) {
@@ -2195,6 +2580,10 @@
             if (deskPlayBtn) deskPlayBtn.textContent = playText;
             if (mobileMiniPlayBtn) mobileMiniPlayBtn.textContent = playText;
             if (miniVinyl) miniVinyl.classList.toggle('spinning', state.isPlaying);
+            const sheetPlayBtn = document.getElementById('sheet-btn-play');
+            if (sheetPlayBtn) sheetPlayBtn.textContent = playText;
+            const sheetVinyl = document.getElementById('sheet-vinyl');
+            if (sheetVinyl) sheetVinyl.classList.toggle('spinning', state.isPlaying);
 
             const deskShuffle = document.getElementById('btn-desk-shuffle');
             if (deskShuffle) deskShuffle.classList.toggle('active', state.isShuffle);
@@ -2457,6 +2846,77 @@
         }
 
         // --- AUDIO EVENT LISTENERS ---
+        
+        // --- NOW PLAYING MANAGER MODAL (Mobile & Desktop) ---
+        function openNowPlayingModal() {
+            const curSong = state.currentIndex >= 0 ? SONGS[state.currentIndex] : SONGS[0];
+            if (!curSong) return;
+
+            const modal = document.getElementById('now-playing-modal');
+            if (!modal) return;
+
+            const titleEl = document.getElementById('sheet-song-title');
+            const artistEl = document.getElementById('sheet-song-artist');
+            const ceroEl = document.getElementById('sheet-badge-cero');
+            const langEl = document.getElementById('sheet-badge-lang');
+
+            if (titleEl) titleEl.textContent = curSong.title;
+            if (artistEl) artistEl.textContent = `${curSong.artist}${curSong.movie ? ' • ' + curSong.movie : ''}`;
+            if (ceroEl) ceroEl.textContent = curSong.function;
+            if (langEl) langEl.textContent = curSong.language;
+
+            const playBtn = document.getElementById('sheet-btn-play');
+            if (playBtn) playBtn.textContent = state.isPlaying ? '❚❚' : '▶';
+
+            const vinyl = document.getElementById('sheet-vinyl');
+            if (vinyl) vinyl.classList.toggle('spinning', state.isPlaying);
+
+            [0, 3, 5, 8].forEach(s => {
+                const el = document.getElementById(`sheet-pill-skip-${s}`);
+                if (el) el.classList.toggle('active', s === state.skipIntroSeconds);
+            });
+
+            [1.0, 1.05, 1.10, 1.15].forEach(s => {
+                const key = s === 1.0 ? '1' : s.toString().replace('.', '');
+                const el = document.getElementById(`sheet-pill-spd-${key}`);
+                if (el) el.classList.toggle('active', s === state.playbackSpeed);
+            });
+
+            const duckBtn = document.getElementById('sheet-btn-duck');
+            if (duckBtn) {
+                duckBtn.classList.toggle('active', state.isDucked);
+                duckBtn.textContent = state.isDucked ? '🎙️ MIC LIVE' : '🎙️ MIC DUCK';
+            }
+
+            const bassBtn = document.getElementById('sheet-btn-bass');
+            if (bassBtn) bassBtn.classList.toggle('active', state.bassBoost);
+
+            const favBtn = document.getElementById('sheet-btn-fav');
+            if (favBtn) {
+                const isFav = state.favorites.has(curSong.id);
+                favBtn.textContent = isFav ? '❤️ In Favorites' : '🤍 Add to Favorites';
+                favBtn.classList.toggle('is-fav', isFav);
+            }
+
+            modal.classList.add('open');
+        }
+
+        function closeNowPlayingModal() {
+            const modal = document.getElementById('now-playing-modal');
+            if (modal) modal.classList.remove('open');
+        }
+
+        function toggleFavCurSong() {
+            if (state.currentIndex >= 0) {
+                toggleFav(SONGS[state.currentIndex].id);
+                const favBtn = document.getElementById('sheet-btn-fav');
+                if (favBtn) {
+                    const isFav = state.favorites.has(SONGS[state.currentIndex].id);
+                    favBtn.textContent = isFav ? '❤️ In Favorites' : '🤍 Add to Favorites';
+                }
+            }
+        }
+
         function setupAudioEvents() {
             audio.addEventListener('play', () => {
                 state.isPlaying = true;
@@ -2485,6 +2945,13 @@
 
                 if (deskTimeCur) deskTimeCur.textContent = curFormatted;
                 if (deskTimeDur) deskTimeDur.textContent = durFormatted;
+
+                const sheetSlider = document.getElementById('sheet-progress-slider');
+                const sheetTimeCur = document.getElementById('sheet-time-cur');
+                const sheetTimeDur = document.getElementById('sheet-time-dur');
+                if (sheetSlider && !sheetSlider.matches(':active')) sheetSlider.value = pct;
+                if (sheetTimeCur) sheetTimeCur.textContent = curFormatted;
+                if (sheetTimeDur) sheetTimeDur.textContent = durFormatted;
 
                 if (state.partyMode && !state.isPartyCrossfading && cur >= 150 && dur > 160) {
                     state.isPartyCrossfading = true;
@@ -2530,6 +2997,13 @@
 
             if (deskSlider) {
                 deskSlider.addEventListener('input', (e) => {
+                    if (audio.duration) audio.currentTime = (e.target.value / 100) * audio.duration;
+                });
+            }
+
+            const sheetSliderEl = document.getElementById('sheet-progress-slider');
+            if (sheetSliderEl) {
+                sheetSliderEl.addEventListener('input', (e) => {
                     if (audio.duration) audio.currentTime = (e.target.value / 100) * audio.duration;
                 });
             }
